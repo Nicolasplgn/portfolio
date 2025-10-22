@@ -8,9 +8,6 @@
   <!-- Animate.css para animações de entrada -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-  <!-- Ícones Profissionais (Lucide Icons) -->
-  <script src="https://unpkg.com/lucide-react/dist/umd/lucide-react.min.js"></script>
-
    <style>
     :root{
       --bg:#101010;
@@ -57,11 +54,11 @@
       backdrop-filter:blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index:20;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom:1px solid var(--border-color);
     }
     .brand{font-weight:700;font-size:18px}
     nav{margin-left:auto;display:flex;gap:12px}
-    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:14px; transition: all 0.2s ease;}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:14px;transition:all 0.2s ease;}
     nav a:hover{background:var(--glass);color:#fff}
 
     /* === LAYOUT E CARDS === */
@@ -72,11 +69,11 @@
       border:1px solid var(--border-color);
       padding:24px;
       border-radius:var(--radius);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
     }
     .card:hover{
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transform:translateY(-5px);
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
     }
     h1, h2 {
         margin: 0 0 12px;
@@ -106,14 +103,14 @@
         font-weight:600;
         border:none;
         cursor:pointer;
-        transition: all 0.2s ease;
+        transition:all 0.2s ease;
     }
     .btn:hover { transform: scale(1.05); }
     .btn-ghost{
         background:transparent;
         border:1px solid var(--border-color);
         color:var(--muted);
-        transition: all 0.2s ease;
+        transition:all 0.2s ease;
     }
     .btn-ghost:hover{background:var(--glass); color: #fff; border-color: rgba(255,255,255,0.2);}
 
@@ -144,7 +141,7 @@
         border:1px solid var(--border-color);
         font-size:13px;
         cursor:pointer;
-        transition: all 0.2s ease;
+        transition:all 0.2s ease;
     }
     .skill-tag:hover {
         background: var(--accent);
@@ -278,7 +275,11 @@
 
         <section id="contact" class="card" style="margin-top:24px">
           <h2>Contato</h2>
-          <form id="contact-form" style="display:flex;flex-direction:column;gap:12px">
+          <form id="contact-form" 
+                action="https://formspree.io/f/manpgeaw" 
+                method="POST"
+                style="display:flex;flex-direction:column;gap:12px">
+            
             <input name="name" placeholder="Seu nome" style="padding:12px;border-radius:8px;background:#2a2a2a;border:1px solid var(--border-color);color:#fff" required>
             <input name="email" type="email" placeholder="Seu email" style="padding:12px;border-radius:8px;background:#2a2a2a;border:1px solid var(--border-color);color:#fff" required>
             <textarea name="message" placeholder="Mensagem" rows="4" style="padding:12px;border-radius:8px;background:#2a2a2a;border:1px solid var(--border-color);color:#fff" required></textarea>
@@ -306,7 +307,7 @@
     // DADOS DO PORTFÓLIO (FONTE ÚNICA DE VERDADE)
     // =======================================================
     const portfolioData = {
-      skills: ["Java", "Spring Boot", "TypeScript", "React", "Node.js", "MySQL", "APIs"],
+      skills: ["Java", "Spring Boot", "TypeScript", "React", "Node.js", "MySQL", "Linux", "APIs"],
       experiences: [
         { company: "Vector Soluções Digitais", role: "Analista de Processos de TI e Desenvolvedor", period: "jun/2025 – atual", description: "Análise e automação de processos, desenvolvimento de soluções internas, criação de robôs de atendimento e otimização de fluxos." },
         { company: "SG Sistemas", role: "Analista de Suporte Web", period: "fev/2025 – jun/2025", description: "Atendimento técnico, configuração e monitoramento de servidores Linux, análise de logs e suporte a integrações." },
@@ -355,6 +356,7 @@
         <div class="project-item">
           <div class="item-header">
             <strong>${proj.title}</strong>
+            <a href="${proj.link}" target="_blank" class="meta" title="Ver projeto">🔗</a>
           </div>
           <p style="margin-top:8px">${proj.description}</p>
           <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">
@@ -370,13 +372,14 @@
         `<button class="skill-tag ${skill === 'Todos' ? 'active' : ''}" data-skill="${skill}">${skill}</button>`
       ).join('');
 
-      // Adiciona o event listener após renderizar
       document.querySelectorAll('.skill-tag').forEach(tag => {
-        tag.addEventListener('click', (e) => {
-          document.querySelector('.skill-tag.active').classList.remove('active');
-          e.target.classList.add('active');
-          renderProjects(e.target.dataset.skill);
-        });
+        if(tag.dataset.skill){ // Evitar erro em tags sem o data attribute
+          tag.addEventListener('click', (e) => {
+            document.querySelector('.skill-tag.active').classList.remove('active');
+            e.target.classList.add('active');
+            renderProjects(e.target.dataset.skill);
+          });
+        }
       });
     }
 
@@ -385,30 +388,49 @@
     // =======================================================
     renderExperiences();
     renderSkillFilters();
-    renderProjects(); // Renderiza todos os projetos inicialmente
+    renderProjects();
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- Lógica do formulário de contato ---
+    // --- Lógica do formulário de contato com envio real ---
     const contactForm = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
     const toast = document.getElementById('toast-notification');
 
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const formData = new FormData(contactForm);
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando...';
 
-      // Simulação de envio para um backend
-      setTimeout(() => {
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          toast.textContent = 'Mensagem enviada! Obrigado pelo contato.';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 4000);
+          contactForm.reset();
+        } else {
+          response.json().then(data => {
+            toast.textContent = data.errors ? data.errors.map(error => error.message).join(', ') : 'Ocorreu um erro. Tente novamente.';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 5000);
+          });
+        }
+      })
+      .catch(error => {
+        toast.textContent = 'Erro de conexão. Verifique sua internet.';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 5000);
+      })
+      .finally(() => {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Enviar Mensagem';
-        contactForm.reset();
-        
-        toast.textContent = 'Mensagem enviada! Obrigado pelo contato.';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-      }, 1500);
+      });
     });
 
     // --- Lógica do scroll (progress bar e back-to-top) ---
@@ -420,7 +442,6 @@
       const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
       scrollProgress.style.width = scrollPercent + '%';
-
       if (scrollTop > 300) {
         backToTopBtn.classList.add('show');
       } else {
@@ -430,7 +451,6 @@
     
     window.addEventListener('scroll', handleScroll);
     backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
   });
   </script>
 </body>
