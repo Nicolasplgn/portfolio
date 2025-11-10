@@ -13,7 +13,6 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
   <style>
-    /* === TEMA STARLIGHT v2.1 (ALINHAMENTO PERFEITO) === */
     :root{
       --bg: #0a0a18;
       --card-bg: rgba(16, 15, 40, 0.6);
@@ -36,7 +35,6 @@
       background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.04"%3E%3Cpath d="M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
       color: #e6eef8;
       -webkit-font-smoothing: antialiased;
-      cursor: auto;
     }
     body::before {
       content: ''; position: fixed; top: 0; left: 0;
@@ -56,19 +54,15 @@
     }
     .brand{font-weight:700;font-size:18px; color: #fff;}
     nav{display:flex;gap:12px}
-    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:14px;transition:all 0.2s ease;}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:14px;transition:all 0.2s ease; text-decoration: none;}
     nav a:hover{background: rgba(0, 245, 255, 0.1); color:#fff}
     #mobile-menu-toggle { display: none; background: transparent; border: none; cursor: pointer; padding: 4px; color: var(--muted); }
     #mobile-menu-toggle:hover { color: #fff; }
     .container{max-width:1100px;margin:40px auto;padding:16px}
     .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:flex-start}
-    
     .card{
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      backdrop-filter: blur(10px);
-      padding:24px;
-      border-radius:var(--radius);
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      backdrop-filter: blur(10px); padding:24px; border-radius:var(--radius);
       transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
     }
     .card:hover{
@@ -76,13 +70,11 @@
       border-color: rgba(0, 245, 255, 0.4);
       box-shadow: 0 0 25px -5px var(--accent-cyan), var(--shadow);
     }
-
     h1, h2 { margin: 0 0 12px; font-weight: 700; }
     h1 { font-size: 38px; line-height: 1.2; letter-spacing: -1px; }
     h2 { font-size: 22px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
     p { color: var(--muted); line-height: 1.7; }
-
-    .intro .text-gradient {
+    .text-gradient {
         background: var(--accent-gradient);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -91,7 +83,7 @@
     .btn{
         display: inline-flex; align-items: center; justify-content: center;
         gap: 8px; background: var(--accent-gradient); color:var(--accent-contrast);
-        padding:12px 18px; border-radius:10px; font-weight:600;
+        padding:12px 18px; border-radius:10px; font-weight:600; text-decoration: none;
         border:none; cursor:pointer; transition:all 0.2s ease;
         box-shadow: 0 0 20px -8px var(--accent-cyan);
     }
@@ -105,7 +97,6 @@
       color: #fff; border-color: var(--accent-cyan);
     }
     .btn [data-lucide] { width: 18px; height: 18px; }
-
     .profile-card{text-align:center;}
     .avatar{
       width:120px; height:120px; border-radius:50%; margin: 0 auto 12px; 
@@ -114,46 +105,22 @@
       font-weight:700; font-size:34px; color:var(--muted);
       border:3px solid var(--border-color);
     }
-    
     .grid-2{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-top:24px}
-    
     .animate-on-scroll {
-        opacity: 0;
-        transform: scale(0.95) translateY(20px);
-        filter: blur(5px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out, filter 0.6s ease-out;
+        opacity: 0; transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-    .animate-on-scroll.is-visible {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-        filter: blur(0);
-    }
-    .experience-item, .project-item{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-color)}.experience-item:last-child, .project-item:last-child{border-bottom:none;margin-bottom:0}.item-header{display:flex;justify-content:space-between;align-items:center}.meta{color:var(--muted);font-size:13px}.project-item .skill-tag{background:rgba(0,0,0,0.3);font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border-color);cursor:default}.skills-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.skills-filter .skill-tag{padding:8px 12px;background:rgba(0,0,0,0.2);font-size:13px;cursor:pointer;border:1px solid var(--border-color);}.skill-tag:hover{background:var(--accent-cyan);color:var(--accent-contrast);border-color:var(--accent-cyan)}.skills-filter .skill-tag.active{background:var(--accent-gradient);color:var(--accent-contrast);font-weight:600;border-color:transparent}#contact-form{display:flex;flex-direction:column;gap:16px;margin-top:16px}#contact-form input, #contact-form textarea{background:rgba(10,10,24,.5);border:1px solid var(--border-color);transition:border-color .2s ease,box-shadow .2s ease;padding:12px;border-radius:8px;color:#fff;font-family:inherit;font-size:14px}#contact-form input:focus, #contact-form textarea:focus{outline:none;border-color:var(--accent-cyan);box-shadow:0 0 0 3px rgba(0,245,255,.2)}.form-group{display:flex;flex-direction:column;gap:6px}.form-group label{font-size:13px;color:var(--muted);padding-left:4px}#submit-btn:disabled{opacity:.7;cursor:not-allowed}footer{text-align:center;margin-top:40px;padding-bottom:20px}.footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:16px}.footer-links a{color:var(--muted);transition:color .2s ease}.footer-links a:hover{color:var(--accent-cyan)}#scroll-progress{background:var(--accent-gradient)}#back-to-top{background:var(--accent-gradient);position:fixed;bottom:20px;right:20px;color:var(--accent-contrast);width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .3s ease;z-index:10}#back-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#2a2a2a;color:#fff;padding:12px 20px;border-radius:8px;border:1px solid var(--border-color);box-shadow:0 4px 20px rgba(0,0,0,.5);font-size:14px;z-index:1000;opacity:0;visibility:hidden;transition:all .4s cubic-bezier(.25,.46,.45,.94)}.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:24px}
-    
-    .chart-container {
-      height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .chart-container h3 {
-      text-align: center;
-      margin-bottom: 12px;
-      font-size: 16px;
-      color: var(--muted);
-    }
-    .project-item{animation:fadeIn .5s ease-out forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    
-    @media(max-width:900px){
-      body{cursor:auto}.hero,.grid-2{grid-template-columns:1fr}h1{font-size:32px}nav{position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;padding:16px 32px;border-bottom:1px solid var(--border-color);max-height:0;overflow:hidden;transition:max-height .4s ease-out,padding .4s ease-out;display:none}nav.nav-mobile-open{display:flex;max-height:500px}nav a{padding:12px 0}#mobile-menu-toggle{display:block}
-    }
+    .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+    .experience-item, .project-item{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-color)}.experience-item:last-child, .project-item:last-child{border-bottom:none;margin-bottom:0}.item-header{display:flex;justify-content:space-between;align-items:center}.meta{color:var(--muted);font-size:13px}.skills-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.skills-filter .skill-tag{padding:8px 12px;background:rgba(0,0,0,0.2);font-size:13px;cursor:pointer;border:1px solid var(--border-color); color: var(--muted);}.skill-tag:hover{background:var(--accent-cyan);color:var(--accent-contrast);border-color:var(--accent-cyan)}.skills-filter .skill-tag.active{background:var(--accent-gradient);color:var(--accent-contrast);font-weight:600;border-color:transparent}#contact-form{display:flex;flex-direction:column;gap:16px;margin-top:16px}#contact-form input, #contact-form textarea{background:rgba(10,10,24,.5);border:1px solid var(--border-color);transition:border-color .2s ease,box-shadow .2s ease;padding:12px;border-radius:8px;color:#fff;font-family:inherit;font-size:14px}#contact-form input:focus, #contact-form textarea:focus{outline:none;border-color:var(--accent-cyan);box-shadow:0 0 0 3px rgba(0,245,255,.2)}.form-group{display:flex;flex-direction:column;gap:6px}.form-group label{font-size:13px;color:var(--muted);padding-left:4px}#submit-btn:disabled{opacity:.7;cursor:not-allowed}footer{text-align:center;margin-top:40px;padding-bottom:20px}.footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:16px}.footer-links a{color:var(--muted);transition:color .2s ease}.footer-links a:hover{color:var(--accent-cyan)}#scroll-progress{background:var(--accent-gradient)}#back-to-top{background:var(--accent-gradient);position:fixed;bottom:20px;right:20px;color:var(--accent-contrast);width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .3s ease;z-index:10}#back-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#2a2a2a;color:#fff;padding:12px 20px;border-radius:8px;border:1px solid var(--border-color);box-shadow:0 4px 20px rgba(0,0,0,.5);font-size:14px;z-index:1000;opacity:0;visibility:hidden;transition:all .4s cubic-bezier(.25,.46,.45,.94)}.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:24px}
+    .chart-container { height: 300px; display: flex; flex-direction: column; justify-content: center; }
+    .chart-container h3 { text-align: center; margin-bottom: 12px; font-size: 16px; color: var(--muted); }
+    @media(max-width:900px){.hero,.grid-2{grid-template-columns:1fr}h1{font-size:32px}nav{display:none}#mobile-menu-toggle{display:block}}
   </style>
 </head>
 <body>
   <div id="scroll-progress"></div>
-
   <header>
-    <div class="brand">Nicolas Gonçalves</div>
+    <a href="/" class="brand" style="text-decoration:none;">Nicolas Gonçalves</a>
     <nav id="nav-links">
       <a href="#about">Sobre</a>
       <a href="#dashboard">Dashboard</a>
@@ -161,10 +128,6 @@
       <a href="#experience">Experiência</a>
       <a href="#contact">Contato</a>
     </nav>
-    <button id="mobile-menu-toggle" aria-label="Abrir menu">
-        <i id="menu-icon" data-lucide="menu"></i>
-        <i id="close-icon" data-lucide="x" style="display:none;"></i>
-    </button>
   </header>
 
   <main class="container">
@@ -174,7 +137,6 @@
           <p>Desenvolvedor de software que transforma desafios complexos em soluções eficientes e automatizadas. Minha paixão é criar sistemas robustos com Java/Spring e Node.js/TypeScript que impulsionam o crescimento do negócio.</p>
           <div class="cta">
             <a href="#contact" class="btn"><i data-lucide="rocket"></i>Iniciar um Projeto</a>
-            <!-- === LINK DO GITHUB ATUALIZADO AQUI === -->
             <a href="https://github.com/nicolasplg29" target="_blank" class="btn btn-ghost"><i data-lucide="github"></i>GitHub</a>
           </div>
       </div>
@@ -205,10 +167,6 @@
             <div class="card chart-container">
               <h3>Tecnologias em Projetos</h3>
               <div id="chartBar"></div>
-            </div>
-            <div class="card chart-container">
-              <h3>Distribuição de Projetos</h3>
-              <div id="chartDonut"></div>
             </div>
           </div>
         </section>
@@ -250,7 +208,6 @@
   
   <footer class="animate-on-scroll">
     <div class="footer-links">
-      <!-- === LINK DO GITHUB ATUALIZADO AQUI === -->
       <a href="https://github.com/nicolasplg29" target="_blank" title="GitHub"><i data-lucide="github"></i></a>
       <a href="https://www.linkedin.com/in/nícolas-pereira-lucas-gonçalves-4466b5326" target="_blank" title="LinkedIn"><i data-lucide="linkedin"></i></a>
     </div>
@@ -263,12 +220,13 @@
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
-    if (window.matchMedia("(pointer: fine)").matches) {
-        window.addEventListener('mousemove', e => {
-            document.body.style.setProperty('--mouse-x', e.clientX + 'px');
-            document.body.style.setProperty('--mouse-y', e.clientY + 'px');
-        });
-    }
+    
+    // Efeito Aurora que segue o mouse
+    window.addEventListener('mousemove', e => {
+        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
     const portfolioData = {
       skills: ["Java", "Spring Boot", "TypeScript", "React", "Node.js", "MySQL", "APIs"],
       experiences: [
@@ -277,62 +235,125 @@
         { company: "Prefeitura de Sarandi", role: "Chefe da Divisão de Informática", period: "2023 – 2024", description: "Gerenciei a infraestrutura de TI, liderei projetos de modernização e prestei suporte vital aos sistemas governamentais." }
       ],
       projects: [
-        { title: "Kanban API", description: "API REST para um sistema Kanban, resolvendo a necessidade de um backend seguro com JWT, CRUD completo e geração de relatórios.", tags: ["Java", "Spring Boot", "APIs", "MySQL"]},
-        { title: "Sistema de Suporte Operacional", description: "API RESTful construída para centralizar e gerenciar incidentes de TI, melhorando o tempo de resposta da equipe.", tags: ["Node.js", "TypeScript", "APIs"]},
-        { title: "Livraria Digital", description: "Aplicação para gerenciamento de uma livraria, com foco em um backend robusto usando NestJS e TypeORM para alta manutenibilidade.", tags: ["Node.js", "TypeScript", "MySQL"]},
-        { title: "PDV WAVE", description: "Interface de Ponto de Venda (PDV) com foco em performance e resiliência, usando IndexedDB para funcionalidade offline.", tags: ["React", "TypeScript"]},
-        { title: "Agenda de Reuniões Corporativa", description: "Sistema fullstack para gestão de salas e atas de reunião, otimizando a organização interna da equipe.", tags: ["Java", "Spring Boot", "React"]}
+        { title: "Kanban API", description: "API REST para um sistema Kanban, com JWT, CRUD completo e geração de relatórios.", tags: ["Java", "Spring Boot", "APIs", "MySQL"]},
+        { title: "Sistema de Suporte Operacional", description: "API RESTful para centralizar e gerenciar incidentes de TI, melhorando o tempo de resposta.", tags: ["Node.js", "TypeScript", "APIs"]},
+        { title: "Livraria Digital", description: "Backend robusto com NestJS e TypeORM para alta manutenibilidade de uma livraria.", tags: ["Node.js", "TypeScript", "MySQL"]},
+        { title: "PDV WAVE", description: "Interface de Ponto de Venda (PDV) com funcionalidade offline usando IndexedDB.", tags: ["React", "TypeScript"]},
+        { title: "Agenda de Reuniões Corporativa", description: "Sistema fullstack para gestão de salas e atas de reunião.", tags: ["Java", "Spring Boot", "React"]}
       ]
     };
-    const radarOptions = {
-      chart: { type: 'radar', height: 260, toolbar: { show: false }, background: 'transparent' },
+
+    const experienceList = document.getElementById('experience-list');
+    const projectsList = document.getElementById('projects-list');
+    const skillsFilterContainer = document.getElementById('skills-filter-container');
+
+    function renderExperiences() {
+      if (!experienceList) return;
+      experienceList.innerHTML = portfolioData.experiences.map(exp => `
+        <div class="experience-item" style="position: relative; padding-left: 24px;">
+          <div style="position: absolute; left: 0; top: 5px; width: 8px; height: 8px; border-radius: 9999px; background-color: var(--accent-cyan); margin-top: 2px;"></div>
+          <div class="item-header">
+            <strong>${exp.company}</strong><span class="meta">${exp.period}</span>
+          </div>
+          <div class="meta">${exp.role}</div>
+          <p style="margin-top:8px">${exp.description}</p>
+        </div>`).join('');
+    }
+
+    function renderProjects(filter = 'Todos') {
+      if (!projectsList) return;
+      const filtered = filter === 'Todos' ? portfolioData.projects : portfolioData.projects.filter(p => p.tags.includes(filter));
+      projectsList.innerHTML = filtered.length === 0 ? `<p class="meta">Nenhum projeto encontrado.</p>` : filtered.map(proj => `
+        <div class="project-item">
+          <h3 style="font-weight: 600; color: #fff;">${proj.title}</h3>
+          <p style="margin-top:4px;">${proj.description}</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">
+            ${proj.tags.map(tag => `<span style="font-size: 11px; background-color: rgba(0, 245, 255, 0.1); color: var(--accent-cyan); padding: 4px 8px; border-radius: 9999px;">${tag}</span>`).join('')}
+          </div>
+        </div>`).join('');
+    }
+
+    function renderSkillFilters() {
+      if (!skillsFilterContainer) return;
+      const skills = ['Todos', ...portfolioData.skills];
+      skillsFilterContainer.innerHTML = skills.map(skill => `<button class="skill-tag ${skill === 'Todos' ? 'active' : ''}" data-skill="${skill}">${skill}</button>`).join('');
+      skillsFilterContainer.querySelectorAll('.skill-tag[data-skill]').forEach(tag => {
+        tag.addEventListener('click', e => {
+          skillsFilterContainer.querySelector('.skill-tag.active[data-skill]').classList.remove('active');
+          e.target.classList.add('active');
+          renderProjects(e.target.dataset.skill);
+        });
+      });
+    }
+
+    // --- GRÁFICOS APEXCHARTS ---
+    const chartBaseOptions = {
+      chart: { background: 'transparent', toolbar: { show: false } },
+      tooltip: { theme: 'dark' },
+    };
+
+    const radarOptions = { ...chartBaseOptions,
+      chart: { ...chartBaseOptions.chart, type: 'radar', height: 280 },
       series: [{ name: 'Nível', data: [90, 95, 85, 80, 80, 75, 95] }],
       labels: portfolioData.skills,
       colors: ['var(--accent-cyan)'],
-      yaxis: { show: false },
-      tooltip: { theme: 'dark' },
-      markers: { size: 4 },
+      yaxis: { show: false }, markers: { size: 4 },
       fill: { opacity: 0.3 },
       stroke: { show: true, width: 2, colors: ['var(--accent-cyan)'], dashArray: 0 }
     };
     if(document.querySelector("#chartRadar")) new ApexCharts(document.querySelector("#chartRadar"), radarOptions).render();
+    
     const techCounts = {}; portfolioData.skills.forEach(skill => { techCounts[skill] = 0; });
     portfolioData.projects.forEach(project => project.tags.forEach(tag => { if (techCounts.hasOwnProperty(tag)) techCounts[tag]++; }));
-    const barOptions = {
-        chart: { type: 'bar', height: 260, toolbar: { show: false }, background: 'transparent' },
+    const barOptions = { ...chartBaseOptions,
+        chart: { ...chartBaseOptions.chart, type: 'bar', height: 280 },
         series: [{ name: 'Projetos', data: Object.values(techCounts) }],
         plotOptions: { bar: { horizontal: true, barHeight: '60%', borderRadius: 6, colors: { ranges: [{ from: 0, to: 10, color: 'var(--accent-cyan)' }] } } },
         dataLabels: { enabled: false },
         xaxis: { categories: Object.keys(techCounts), labels: { show: false }, max: Math.max(...Object.values(techCounts)) + 1 },
         yaxis: { labels: { style: { colors: 'var(--muted)' } } },
-        tooltip: { theme: 'dark' },
         grid: { borderColor: 'rgba(163, 163, 194, 0.1)' }
     };
     if(document.querySelector("#chartBar")) new ApexCharts(document.querySelector("#chartBar"), barOptions).render();
-    const projectDistribution = { "Backend": 0, "Frontend": 0, "Fullstack": 0 };
-    const backendTags = ["Java", "Spring Boot", "Node.js", "APIs", "MySQL"];
-    const frontendTags = ["React"];
-    portfolioData.projects.forEach(project => {
-      const hasBackend = project.tags.some(tag => backendTags.includes(tag));
-      const hasFrontend = project.tags.some(tag => frontendTags.includes(tag));
-      if (hasBackend && hasFrontend) projectDistribution["Fullstack"]++;
-      else if (hasBackend) projectDistribution["Backend"]++;
-      else if (hasFrontend) projectDistribution["Frontend"]++;
+
+    // --- RENDERIZAÇÃO INICIAL E EVENTOS ---
+    renderExperiences(); renderSkillFilters(); renderProjects();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const contactForm = document.getElementById('contact-form'), submitBtn = document.getElementById('submit-btn'), toast = document.getElementById('toast-notification');
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault(); submitBtn.disabled = true; submitBtn.textContent = 'Enviando...';
+      fetch(contactForm.action, { method: 'POST', body: new FormData(contactForm), headers: { 'Accept': 'application/json' }})
+      .then(res => {
+        if(res.ok) {
+          toast.textContent = 'Mensagem enviada! Obrigado pelo contato.';
+          toast.classList.add('show'); contactForm.reset();
+        } else { res.json().then(data => { toast.textContent = data.errors ? data.errors[0].message : 'Ocorreu um erro.'; toast.classList.add('show'); }); }
+      }).catch(() => { toast.textContent = 'Erro de conexão.'; toast.classList.add('show'); })
+      .finally(() => {
+        setTimeout(() => toast.classList.remove('show'), 4000);
+        submitBtn.disabled = false; submitBtn.textContent = 'Enviar Mensagem';
+      });
     });
-    const donutLabels = Object.keys(projectDistribution).filter(k => projectDistribution[k] > 0);
-    const donutSeries = donutLabels.map(k => projectDistribution[k]);
-    const donutOptions = {
-        chart: { type: 'donut', height: 260, background: 'transparent' },
-        series: donutSeries,
-        labels: donutLabels,
-        colors: [ 'var(--accent-magenta)', 'var(--accent-cyan)', '#34d399'],
-        legend: { position: 'bottom', labels: { colors: '#e6eef8' } },
-        plotOptions: { pie: { donut: { size: '70%' } } },
-        tooltip: { y: { formatter: val => val + (val > 1 ? ' projetos' : ' projeto') }, theme: 'dark' },
-        dataLabels: { enabled: false }
-    };
-    if(document.querySelector("#chartDonut")) new ApexCharts(document.querySelector("#chartDonut"), donutOptions).render();
-    const experienceList=document.getElementById("experience-list"),projectsList=document.getElementById("projects-list"),skillsFilterContainer=document.getElementById("skills-filter-container");function renderExperiences(){experienceList&&(experienceList.innerHTML=portfolioData.experiences.map(e=>`\n        <div class="experience-item">\n          <div class="item-header">\n            <strong>${e.company}</strong>\n            <span class="meta">${e.period}</span>\n          </div>\n          <div class="meta">${e.role}</div>\n          <p style="margin-top:8px">${e.description}</p>\n        </div>\n      `).join(""))}function renderProjects(e="Todos"){if(!projectsList)return;const t="Todos"===e?portfolioData.projects:portfolioData.projects.filter(t=>t.tags.includes(e));0===t.length?projectsList.innerHTML='<p class="meta">Nenhum projeto encontrado.</p>':projectsList.innerHTML=t.map(e=>`\n        <div class="project-item">\n          <strong>${e.title}</strong>\n          <p style="margin-top:8px">${e.description}</p>\n          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">\n            ${e.tags.map(e=>`<span class="skill-tag">${e}</span>`).join("")}\n          </div>\n        </div>\n      `).join("")}function renderSkillFilters(){if(!skillsFilterContainer)return;const e=["Todos",...portfolioData.skills];skillsFilterContainer.innerHTML=e.map(e=>`\n        <button class="skill-tag ${"Todos"===e?"active":""}" data-skill="${e}">${e}</button>\n      `).join(""),skillsFilterContainer.querySelectorAll(".skill-tag[data-skill]").forEach(e=>{e.addEventListener("click",t=>{skillsFilterContainer.querySelector(".skill-tag.active[data-skill]").classList.remove("active"),t.target.classList.add("active"),renderProjects(t.target.dataset.skill)})})}renderExperiences(),renderSkillFilters(),renderProjects(),document.getElementById("year").textContent=(new Date).getFullYear();const menuToggle=document.getElementById("mobile-menu-toggle"),navLinks=document.getElementById("nav-links"),menuIcon=document.getElementById("menu-icon"),closeIcon=document.getElementById("close-icon");menuToggle.addEventListener("click",()=>{const e=navLinks.classList.toggle("nav-mobile-open");menuIcon.style.display=e?"none":"block",closeIcon.style.display=e?"block":"none"}),navLinks.querySelectorAll("a").forEach(e=>{e.addEventListener("click",()=>{navLinks.classList.contains("nav-mobile-open")&&(navLinks.classList.remove("nav-mobile-open"),menuIcon.style.display="block",closeIcon.style.display="none")})});const contactForm=document.getElementById("contact-form"),submitBtn=document.getElementById("submit-btn"),toast=document.getElementById("toast-notification");contactForm.addEventListener("submit",e=>{e.preventDefault();const t=new FormData(contactForm);submitBtn.disabled=!0,submitBtn.textContent="Enviando...",fetch(contactForm.action,{method:"POST",body:t,headers:{Accept:"application/json"}}).then(e=>{e.ok?(toast.textContent="Mensagem enviada! Obrigado pelo contato.",toast.classList.add("show"),contactForm.reset()):e.json().then(e=>{toast.textContent=e.errors?e.errors[0].message:"Ocorreu um erro."})}).catch(e=>{toast.textContent="Erro de conexão."}).finally(()=>{setTimeout(()=>{toast.classList.remove("show")},4e3),submitBtn.disabled=!1,submitBtn.textContent="Enviar Mensagem"})});const scrollProgress=document.getElementById("scroll-progress"),backToTopBtn=document.getElementById("back-to-top");window.addEventListener("scroll",()=>{const e=100*window.scrollY/(document.documentElement.scrollHeight-window.innerHeight);scrollProgress.style.width=e+"%",backToTopBtn.classList.toggle("show",window.scrollY>300)}),backToTopBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));const animatedElements=document.querySelectorAll(".animate-on-scroll"),observer=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add("is-visible"),observer.unobserve(e.target))})},{threshold:.1});animatedElements.forEach(e=>observer.observe(e));
+
+    const scrollProgress = document.getElementById('scroll-progress'), backToTopBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
+      backToTopBtn.classList.toggle('show', window.scrollY > 300);
+    });
+    backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    animatedElements.forEach(el => observer.observe(el));
   });
   </script>
 </body>
