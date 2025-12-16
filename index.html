@@ -2,359 +2,431 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nicolas Gonçalves — Desenvolvedor Fullstack</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Nicolas Gonçalves - Creative Fullstack Engineer">
+  <title>Nicolas Gonçalves | Dev</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
   <style>
-    :root{
-      --bg: #0a0a18;
-      --card-bg: rgba(16, 15, 40, 0.6);
-      --muted: #a3a3c2;
-      --accent-cyan: #00f5ff;
-      --accent-magenta: #ff00f5;
-      --accent-gradient: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
-      --accent-contrast: #0a0a18;
-      --border-color: rgba(163, 163, 194, 0.2);
-      --shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-      --radius: 16px;
-      font-family: 'Inter', system-ui, sans-serif;
+    :root {
+      --bg: #030014;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      
+      /* Cores Neon Refinadas */
+      --primary: #8b5cf6;  /* Roxo */
+      --cyan: #06b6d4;     /* Ciano */
+      --pink: #ec4899;     /* Rosa */
+      
+      --glow-size: 500px;
     }
 
-    *{box-sizing:border-box}
-    html{ scroll-behavior: smooth; }
-    html,body{
-      margin:0;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
       background-color: var(--bg);
-      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.04"%3E%3Cpath d="M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-      color: #e6eef8;
-      -webkit-font-smoothing: antialiased;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
     }
-    body::before {
-      content: ''; position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(0, 245, 255, 0.1), transparent 80%);
-      z-index: -1; pointer-events: none;
+
+    /* --- TEXTURA CINEMÁTICA (GRAIN) --- */
+    .grain-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
     }
-    header{
-      display:flex; align-items:center; justify-content: space-between;
-      padding:20px 32px; position:sticky; top:0;
-      backdrop-filter:blur(16px); -webkit-backdrop-filter: blur(16px);
-      z-index:20;
-      border-bottom: 1px solid;
-      border-image-slice: 1;
-      border-image-source: linear-gradient(to right, transparent, var(--border-color), transparent);
-      background: rgba(10, 10, 24, 0.5);
+
+    /* --- AURORA BACKGROUND --- */
+    .aurora-blob {
+      position: fixed; top: -20%; left: 20%; width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+      filter: blur(80px); z-index: -1; animation: float 10s ease-in-out infinite;
     }
-    .brand{font-weight:700;font-size:18px; color: #fff;}
-    nav{display:flex;gap:12px}
-    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);font-size:14px;transition:all 0.2s ease; text-decoration: none;}
-    nav a:hover{background: rgba(0, 245, 255, 0.1); color:#fff}
-    #mobile-menu-toggle { display: none; background: transparent; border: none; cursor: pointer; padding: 4px; color: var(--muted); }
-    #mobile-menu-toggle:hover { color: #fff; }
-    .container{max-width:1100px;margin:40px auto;padding:16px}
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:flex-start}
-    .card{
-      background: var(--card-bg); border: 1px solid var(--border-color);
-      backdrop-filter: blur(10px); padding:24px; border-radius:var(--radius);
-      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    .aurora-blob-2 {
+      position: fixed; bottom: -20%; right: -10%; width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+      filter: blur(80px); z-index: -1; animation: float 15s ease-in-out infinite reverse;
     }
-    .card:hover{
-      transform: translateY(-6px);
-      border-color: rgba(0, 245, 255, 0.4);
-      box-shadow: 0 0 25px -5px var(--accent-cyan), var(--shadow);
+    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, 40px); } }
+
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* --- NAV GLASS --- */
+    nav {
+      position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+      background: rgba(3, 0, 20, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); padding: 10px 6px;
+      border-radius: 100px; z-index: 100; display: flex; gap: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
-    h1, h2 { margin: 0 0 12px; font-weight: 700; }
-    h1 { font-size: 38px; line-height: 1.2; letter-spacing: -1px; }
-    h2 { font-size: 22px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
-    p { color: var(--muted); line-height: 1.7; }
-    .text-gradient {
-        background: var(--accent-gradient);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
+    nav a { 
+      color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; 
+      padding: 8px 20px; border-radius: 20px; transition: 0.3s;
     }
-    .cta{display:flex;flex-wrap: wrap; gap:10px;margin-top:24px;}
-    .btn{
-        display: inline-flex; align-items: center; justify-content: center;
-        gap: 8px; background: var(--accent-gradient); color:var(--accent-contrast);
-        padding:12px 18px; border-radius:10px; font-weight:600; text-decoration: none;
-        border:none; cursor:pointer; transition:all 0.2s ease;
-        box-shadow: 0 0 20px -8px var(--accent-cyan);
+    nav a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+
+    /* --- HERO --- */
+    .hero {
+      min-height: 95vh; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center; padding-top: 100px;
     }
-    .btn:hover { transform: scale(1.05); box-shadow: 0 0 30px -5px var(--accent-cyan); }
-    .btn-ghost{
-        background:transparent; border:1px solid var(--border-color);
-        color:var(--muted); box-shadow: none;
+    
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 8vw, 88px); line-height: 1; font-weight: 700;
+      color: #fff; margin-bottom: 24px; letter-spacing: -2px;
     }
-    .btn-ghost:hover{
-      background: rgba(0, 245, 255, 0.1); 
-      color: #fff; border-color: var(--accent-cyan);
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #fff 30%, var(--text-muted));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .btn [data-lucide] { width: 18px; height: 18px; }
-    .profile-card{text-align:center;}
-    .avatar{
-      width:120px; height:120px; border-radius:50%; margin: 0 auto 12px; 
-      background:linear-gradient(135deg, #100f28, #1e1d42); 
-      display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:34px; color:var(--muted);
-      border:3px solid var(--border-color);
+    
+    .highlight {
+      background: linear-gradient(90deg, var(--cyan), var(--primary), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .grid-2{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-top:24px}
-    .animate-on-scroll {
-        opacity: 0; transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+    /* TERMINAL TYPEWRITER */
+    .terminal-box {
+      width: 100%; max-width: 600px; background: #0a0a0a;
+      border: 1px solid var(--glass-border); border-radius: 12px;
+      overflow: hidden; margin: 40px auto; text-align: left;
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
     }
-    .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-    .experience-item, .project-item{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-color)}.experience-item:last-child, .project-item:last-child{border-bottom:none;margin-bottom:0}.item-header{display:flex;justify-content:space-between;align-items:center}.meta{color:var(--muted);font-size:13px}.skills-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.skills-filter .skill-tag{padding:8px 12px;background:rgba(0,0,0,0.2);font-size:13px;cursor:pointer;border:1px solid var(--border-color); color: var(--muted);}.skill-tag:hover{background:var(--accent-cyan);color:var(--accent-contrast);border-color:var(--accent-cyan)}.skills-filter .skill-tag.active{background:var(--accent-gradient);color:var(--accent-contrast);font-weight:600;border-color:transparent}#contact-form{display:flex;flex-direction:column;gap:16px;margin-top:16px}#contact-form input, #contact-form textarea{background:rgba(10,10,24,.5);border:1px solid var(--border-color);transition:border-color .2s ease,box-shadow .2s ease;padding:12px;border-radius:8px;color:#fff;font-family:inherit;font-size:14px}#contact-form input:focus, #contact-form textarea:focus{outline:none;border-color:var(--accent-cyan);box-shadow:0 0 0 3px rgba(0,245,255,.2)}.form-group{display:flex;flex-direction:column;gap:6px}.form-group label{font-size:13px;color:var(--muted);padding-left:4px}#submit-btn:disabled{opacity:.7;cursor:not-allowed}footer{text-align:center;margin-top:40px;padding-bottom:20px}.footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:16px}.footer-links a{color:var(--muted);transition:color .2s ease}.footer-links a:hover{color:var(--accent-cyan)}#scroll-progress{background:var(--accent-gradient)}#back-to-top{background:var(--accent-gradient);position:fixed;bottom:20px;right:20px;color:var(--accent-contrast);width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(20px);transition:all .3s ease;z-index:10}#back-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#2a2a2a;color:#fff;padding:12px 20px;border-radius:8px;border:1px solid var(--border-color);box-shadow:0 4px 20px rgba(0,0,0,.5);font-size:14px;z-index:1000;opacity:0;visibility:hidden;transition:all .4s cubic-bezier(.25,.46,.45,.94)}.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:24px}
-    .chart-container { height: 300px; display: flex; flex-direction: column; justify-content: center; }
-    .chart-container h3 { text-align: center; margin-bottom: 12px; font-size: 16px; color: var(--muted); }
-    @media(max-width:900px){.hero,.grid-2{grid-template-columns:1fr}h1{font-size:32px}nav{display:none}#mobile-menu-toggle{display:block}}
+    .terminal-bar {
+      background: #171717; padding: 10px 16px; border-bottom: 1px solid var(--glass-border);
+      display: flex; gap: 8px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-content {
+      padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.6;
+      min-height: 140px; color: var(--text-muted);
+    }
+    .cursor { display: inline-block; width: 8px; height: 16px; background: var(--primary); animation: blink 1s infinite; vertical-align: sub; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* GLOW BUTTONS */
+    .btn-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .btn-magic {
+      position: relative; padding: 1px; border-radius: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--cyan));
+      overflow: hidden; text-decoration: none;
+    }
+    .btn-inner {
+      background: #030014; padding: 12px 32px; border-radius: 7px;
+      color: #fff; font-weight: 600; font-size: 15px; display: block;
+      transition: 0.2s;
+    }
+    .btn-magic:hover .btn-inner { background: transparent; }
+
+    .btn-ghost {
+      padding: 12px 32px; border: 1px solid var(--glass-border); border-radius: 8px;
+      color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.2s;
+    }
+    .btn-ghost:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+
+    /* --- MARQUEE TECH --- */
+    .marquee-wrap {
+      width: 100%; overflow: hidden; padding: 60px 0;
+      mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    }
+    .marquee { display: flex; gap: 40px; animation: scroll 30s linear infinite; width: max-content; }
+    .tech-icon {
+      font-family: 'Space Grotesk'; font-weight: 700; font-size: 18px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tech-icon i { color: #fff; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    /* --- PROJECTS (SPOTLIGHT) --- */
+    .section-header { font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin: 80px 0 40px; display: flex; align-items: center; gap: 20px; }
+    .section-line { height: 1px; flex: 1; background: linear-gradient(90deg, var(--glass-border), transparent); }
+
+    .grid-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+
+    .card {
+      background: var(--card-bg); border-radius: 16px; position: relative;
+      border: 1px solid var(--glass-border); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    
+    /* Mouse Spotlight Logic */
+    .card::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      background: radial-gradient(var(--glow-size) circle at var(--x) var(--y), rgba(255,255,255,0.06), transparent 40%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover::before { opacity: 1; }
+    
+    /* Border Glow Logic */
+    .card::after {
+      content: ""; position: absolute; inset: 0; border-radius: 16px; z-index: 1; pointer-events: none;
+      padding: 1px; 
+      background: radial-gradient(var(--glow-size) circle at var(--x) var(--y), var(--primary), transparent 40%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover::after { opacity: 1; }
+
+    .card-body { padding: 30px; position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; }
+    
+    .proj-icon { margin-bottom: 20px; color: var(--cyan); }
+    .proj-title { font-family: 'Space Grotesk'; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .proj-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+    .tag-container { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-size: 11px; padding: 4px 10px; border: 1px solid var(--glass-border); border-radius: 6px; color: var(--text-muted); }
+
+    /* --- EXPERIENCE --- */
+    .xp-grid { display: grid; gap: 30px; margin-top: 40px; max-width: 800px; }
+    .xp-card {
+      border-left: 2px solid var(--glass-border); padding: 0 0 0 30px; position: relative;
+      transition: 0.3s;
+    }
+    .xp-card::before {
+      content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px;
+      background: var(--bg); border: 2px solid var(--primary); border-radius: 50%;
+      box-shadow: 0 0 15px var(--primary);
+    }
+    .xp-card:hover { border-left-color: var(--primary); }
+    .xp-role { font-family: 'Space Grotesk'; font-size: 18px; font-weight: 700; color: #fff; }
+    .xp-company { font-size: 14px; color: var(--cyan); margin-bottom: 8px; display: block; letter-spacing: 1px; text-transform: uppercase; }
+
+    /* --- CONTACT --- */
+    .contact-section { margin: 120px 0 60px; text-align: center; }
+    .contact-box {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(139, 92, 246, 0.05) 100%);
+      border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px;
+      max-width: 600px; margin: 0 auto;
+    }
+    input, textarea {
+      width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+      padding: 14px; border-radius: 8px; color: #fff; margin-bottom: 16px; font-family: inherit;
+      transition: 0.3s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+
+    footer { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--glass-border); }
+
+    @media(max-width: 768px) {
+      h1 { font-size: 42px; }
+      nav { width: 90%; justify-content: center; top: 20px; }
+      .marquee { animation-duration: 15s; }
+    }
   </style>
 </head>
 <body>
-  <div id="scroll-progress"></div>
-  <header>
-    <a href="/" class="brand" style="text-decoration:none;">Nicolas Gonçalves</a>
-    <nav id="nav-links">
-      <a href="#about">Sobre</a>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#projects">Projetos</a>
-      <a href="#experience">Experiência</a>
-      <a href="#contact">Contato</a>
-    </nav>
-  </header>
+
+  <!-- Background FX -->
+  <div class="grain-overlay"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob-2"></div>
+
+  <nav>
+    <a href="#about">Sobre</a>
+    <a href="#projects">Work</a>
+    <a href="#contact">Contato</a>
+  </nav>
 
   <main class="container">
-    <section class="hero">
-      <div class="card intro">
-          <h1 class="text-gradient">Construindo o Futuro, Linha por Linha de Código.</h1>
-          <p>Desenvolvedor de software que transforma desafios complexos em soluções eficientes e automatizadas. Minha paixão é criar sistemas robustos com Java/Spring e Node.js/TypeScript que impulsionam o crescimento do negócio.</p>
-          <div class="cta">
-            <a href="#contact" class="btn"><i data-lucide="rocket"></i>Iniciar um Projeto</a>
-            <a href="https://github.com/nicolasplg29" target="_blank" class="btn btn-ghost"><i data-lucide="github"></i>GitHub</a>
-          </div>
+    
+    <!-- HERO SECTION -->
+    <section class="hero" id="about">
+      <h1 class="gradient-text">
+        Nicolas Gonçalves
+      </h1>
+      <h2 style="font-family: 'Space Grotesk'; font-size: clamp(20px, 4vw, 32px); color: var(--text-muted); font-weight: 300; margin-bottom: 30px;">
+        Arquitetando o futuro com <span class="highlight">Código & Inovação</span>
+      </h2>
+
+      <div class="terminal-box">
+        <div class="terminal-bar">
+          <div class="dot" style="background:#ef4444"></div>
+          <div class="dot" style="background:#eab308"></div>
+          <div class="dot" style="background:#22c55e"></div>
+        </div>
+        <div class="terminal-content" id="typewriter">
+          <!-- Texto gerado via JS -->
+        </div>
       </div>
-      <aside class="card profile-card">
-          <div class="avatar">NG</div>
-          <div style="font-weight:700; font-size: 20px;">Nicolas Gonçalves</div>
-          <p class="meta">Sarandi - PR, Brasil</p>
-          <div style="display:flex;gap:12px;margin-top:16px; justify-content: center;">
-            <a href="https://www.linkedin.com/in/nícolas-pereira-lucas-gonçalves-4466b5326" target="_blank" class="btn btn-ghost"><i data-lucide="linkedin"></i>LinkedIn</a>
-          </div>
-      </aside>
+
+      <div class="btn-group">
+        <a href="#projects" class="btn-magic">
+          <span class="btn-inner">Explorar Projetos</span>
+        </a>
+        <a href="/seu-curriculo.pdf" download class="btn-ghost">
+          <i data-lucide="download" style="width: 16px; vertical-align: middle;"></i> Currículo
+        </a>
+      </div>
     </section>
 
-    <div class="grid-2">
-      <div>
-        <section id="about" class="card animate-on-scroll">
-          <h2>Sobre Mim</h2>
-          <p>Com um histórico de sucesso em automação de processos e desenvolvimento fullstack, utilizo tecnologias como Java, Spring Boot, TypeScript e React para construir e manter sistemas de alto desempenho. Minha especialidade é analisar problemas complexos e entregar soluções eficientes que otimizem o fluxo de trabalho e gerem valor real para o negócio.</p>
-        </section>
-
-        <section id="dashboard" class="card animate-on-scroll" style="margin-top:24px;">
-          <h2>Dashboard de Competências</h2>
-          <div class="charts-grid">
-            <div class="card chart-container">
-              <h3>Minhas Habilidades</h3>
-              <div id="chartRadar"></div>
-            </div>
-            <div class="card chart-container">
-              <h3>Tecnologias em Projetos</h3>
-              <div id="chartBar"></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="projects" class="card animate-on-scroll" style="margin-top:24px">
-          <h2>Projetos Relevantes</h2>
-          <div id="skills-filter-container" class="skills-filter"></div>
-          <div id="projects-list"></div>
-        </section>
+    <!-- TECH MARQUEE -->
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <!-- Ícones repetidos para efeito infinito -->
+        <div class="tech-icon"><i data-lucide="coffee"></i> JAVA 17</div>
+        <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
+        <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
+        <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
+        <div class="tech-icon"><i data-lucide="server"></i> NODE.JS</div>
+        <div class="tech-icon"><i data-lucide="container"></i> DOCKER</div>
+        <div class="tech-icon"><i data-lucide="database"></i> POSTGRESQL</div>
+        <div class="tech-icon"><i data-lucide="cloud"></i> AWS</div>
+        <!-- Repetição -->
+        <div class="tech-icon"><i data-lucide="coffee"></i> JAVA 17</div>
+        <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
+        <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
+        <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
+        <div class="tech-icon"><i data-lucide="server"></i> NODE.JS</div>
+        <div class="tech-icon"><i data-lucide="container"></i> DOCKER</div>
       </div>
-      <aside>
-        <section id="experience" class="card animate-on-scroll">
-          <h2>Experiência</h2>
-          <div id="experience-list"></div>
-        </section>
+    </div>
 
-        <section id="contact" class="card animate-on-scroll" style="margin-top:24px">
-          <h2>Contato</h2>
-          <p class="meta">Pronto para colaborar? Envie-me uma mensagem.</p>
-          <form id="contact-form" action="https://formspree.io/f/manpgeaw" method="POST">
-            <div class="form-group">
-                <label for="name">Nome</label>
-                <input id="name" name="name" placeholder="Seu nome" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="Seu email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Mensagem</label>
-                <textarea id="message" name="message" placeholder="Como posso ajudar?" rows="4" required></textarea>
-            </div>
-            <button id="submit-btn" type="submit" class="btn">Enviar Mensagem</button>
-          </form>
-        </section>
-      </aside>
+    <!-- PROJECTS WITH SPOTLIGHT -->
+    <h2 class="section-header" id="projects">Selected Works <div class="section-line"></div></h2>
+    
+    <div class="grid-projects" id="cards-container">
+      
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-body">
+          <div class="proj-icon"><i data-lucide="kanban" width="32" height="32"></i></div>
+          <div class="proj-title">Kanban Enterprise API</div>
+          <p class="proj-desc">Sistema robusto de gestão de tarefas. Autenticação JWT, Swagger e 90% de cobertura de testes. Otimizado para alta performance.</p>
+          <div class="tag-container">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Docker</span>
+          </div>
+          <a href="https://github.com/nicolasplg29" target="_blank" style="position: absolute; inset:0;"></a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-body">
+          <div class="proj-icon"><i data-lucide="activity" width="32" height="32"></i></div>
+          <div class="proj-title">OpsCenter Dashboard</div>
+          <p class="proj-desc">Painel de monitoramento em tempo real via WebSockets. Reduziu o tempo de resposta a incidentes em 30%.</p>
+          <div class="tag-container">
+            <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Node.js</span>
+          </div>
+          <a href="https://github.com/nicolasplg29" target="_blank" style="position: absolute; inset:0;"></a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-body">
+          <div class="proj-icon"><i data-lucide="shopping-cart" width="32" height="32"></i></div>
+          <div class="proj-title">E-commerce Microservices</div>
+          <p class="proj-desc">Arquitetura distribuída com NestJS e RabbitMQ para processamento assíncrono de pedidos em alta escala.</p>
+          <div class="tag-container">
+            <span class="tag">NestJS</span><span class="tag">RabbitMQ</span><span class="tag">Redis</span>
+          </div>
+          <a href="https://github.com/nicolasplg29" target="_blank" style="position: absolute; inset:0;"></a>
+        </div>
+      </div>
+
     </div>
+
+    <!-- EXPERIENCE -->
+    <h2 class="section-header">Timeline <div class="section-line"></div></h2>
+    <div class="xp-grid">
+      
+      <div class="xp-card">
+        <span class="xp-company">VECTOR SOLUÇÕES DIGITAIS • JUN 2025 - ATUAL</span>
+        <div class="xp-role">Analista e Desenvolvedor Fullstack</div>
+        <p style="color: var(--text-muted); margin-top: 8px;">
+          Liderança em automação (RPA). Desenvolvi bots que reduziram 40% da carga manual, focando em eficiência operacional e redução de custos.
+        </p>
+      </div>
+
+      <div class="xp-card">
+        <span class="xp-company">SG SISTEMAS • FEV 2025 - JUN 2025</span>
+        <div class="xp-role">Analista de Suporte Web</div>
+        <p style="color: var(--text-muted); margin-top: 8px;">
+          Sustentação de APIs e Servidores Linux. Garantia de SLA em ambientes críticos de produção e resolução de incidentes N3.
+        </p>
+      </div>
+      
+    </div>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+      <div class="contact-box">
+        <h2 style="font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin-bottom: 16px;">Pronto para inovar?</h2>
+        <p style="margin-bottom: 32px; color: var(--text-muted);">
+          Estou disponível para novos desafios. Vamos conversar sobre como posso ajudar seu time.
+        </p>
+        <form action="https://formspree.io/f/manpgeaw" method="POST">
+          <input type="email" name="email" placeholder="Seu email corporativo" required>
+          <textarea name="message" rows="4" placeholder="Como posso ajudar?" required></textarea>
+          <button type="submit" class="btn-magic" style="width:100%; border:none; cursor:pointer;">
+            <span class="btn-inner">Enviar Mensagem</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
   </main>
-  
-  <footer class="animate-on-scroll">
-    <div class="footer-links">
-      <a href="https://github.com/nicolasplg29" target="_blank" title="GitHub"><i data-lucide="github"></i></a>
-      <a href="https://www.linkedin.com/in/nícolas-pereira-lucas-gonçalves-4466b5326" target="_blank" title="LinkedIn"><i data-lucide="linkedin"></i></a>
-    </div>
-    <p class="meta">Desenvolvido por Nicolas Gonçalves · © <span id="year"></span></p>
+
+  <footer>
+    <p>© 2025 Nicolas Gonçalves. Crafted with code.</p>
   </footer>
-  
-  <button id="back-to-top" title="Voltar ao topo"><i data-lucide="arrow-up"></i></button>
-  <div id="toast-notification" class="toast"></div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
+
+    // 1. TYPEWRITER EFFECT (O Efeito do Terminal)
+    const textToType = `const developer = {
+  name: 'Nicolas Gonçalves',
+  role: 'Fullstack Engineer',
+  skills: ['Java', 'Spring', 'React', 'AWS'],
+  hardWorker: true,
+  hireable: function() {
+    return "Let's build the future.";
+  }
+};`;
+    const typeContainer = document.getElementById('typewriter');
+    let i = 0;
+
+    function typeWriter() {
+      if (i < textToType.length) {
+        // Adiciona cor aos elementos chave para parecer código real
+        let char = textToType.charAt(i);
+        if(char === '\n') char = '<br>';
+        typeContainer.innerHTML += char;
+        i++;
+        setTimeout(typeWriter, 30); // Velocidade da digitação
+      } else {
+        typeContainer.innerHTML += '<span class="cursor"></span>';
+      }
+    }
     
-    // Efeito Aurora que segue o mouse
-    window.addEventListener('mousemove', e => {
-        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
-        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
+    // Inicia a digitação quando a página carrega
+    window.onload = typeWriter;
 
-    const portfolioData = {
-      skills: ["Java", "Spring Boot", "TypeScript", "React", "Node.js", "MySQL", "APIs"],
-      experiences: [
-        { company: "Vector Soluções Digitais", role: "Analista de Processos e Desenvolvedor", period: "jun/2025 – atual", description: "Lidero a análise e automação de processos, desenvolvendo robôs e soluções internas que reduziram o tempo de tarefas manuais em até 40%." },
-        { company: "SG Sistemas", role: "Analista de Suporte Web", period: "fev/2025 – jun/2025", description: "Atuei como especialista em servidores e integrações de API, garantindo alta disponibilidade e a resolução rápida de incidentes críticos para os clientes." },
-        { company: "Prefeitura de Sarandi", role: "Chefe da Divisão de Informática", period: "2023 – 2024", description: "Gerenciei a infraestrutura de TI, liderei projetos de modernização e prestei suporte vital aos sistemas governamentais." }
-      ],
-      projects: [
-        { title: "Kanban API", description: "API REST para um sistema Kanban, com JWT, CRUD completo e geração de relatórios.", tags: ["Java", "Spring Boot", "APIs", "MySQL"]},
-        { title: "Sistema de Suporte Operacional", description: "API RESTful para centralizar e gerenciar incidentes de TI, melhorando o tempo de resposta.", tags: ["Node.js", "TypeScript", "APIs"]},
-        { title: "Livraria Digital", description: "Backend robusto com NestJS e TypeORM para alta manutenibilidade de uma livraria.", tags: ["Node.js", "TypeScript", "MySQL"]},
-        { title: "PDV WAVE", description: "Interface de Ponto de Venda (PDV) com funcionalidade offline usando IndexedDB.", tags: ["React", "TypeScript"]},
-        { title: "Agenda de Reuniões Corporativa", description: "Sistema fullstack para gestão de salas e atas de reunião.", tags: ["Java", "Spring Boot", "React"]}
-      ]
-    };
-
-    const experienceList = document.getElementById('experience-list');
-    const projectsList = document.getElementById('projects-list');
-    const skillsFilterContainer = document.getElementById('skills-filter-container');
-
-    function renderExperiences() {
-      if (!experienceList) return;
-      experienceList.innerHTML = portfolioData.experiences.map(exp => `
-        <div class="experience-item" style="position: relative; padding-left: 24px;">
-          <div style="position: absolute; left: 0; top: 5px; width: 8px; height: 8px; border-radius: 9999px; background-color: var(--accent-cyan); margin-top: 2px;"></div>
-          <div class="item-header">
-            <strong>${exp.company}</strong><span class="meta">${exp.period}</span>
-          </div>
-          <div class="meta">${exp.role}</div>
-          <p style="margin-top:8px">${exp.description}</p>
-        </div>`).join('');
-    }
-
-    function renderProjects(filter = 'Todos') {
-      if (!projectsList) return;
-      const filtered = filter === 'Todos' ? portfolioData.projects : portfolioData.projects.filter(p => p.tags.includes(filter));
-      projectsList.innerHTML = filtered.length === 0 ? `<p class="meta">Nenhum projeto encontrado.</p>` : filtered.map(proj => `
-        <div class="project-item">
-          <h3 style="font-weight: 600; color: #fff;">${proj.title}</h3>
-          <p style="margin-top:4px;">${proj.description}</p>
-          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;">
-            ${proj.tags.map(tag => `<span style="font-size: 11px; background-color: rgba(0, 245, 255, 0.1); color: var(--accent-cyan); padding: 4px 8px; border-radius: 9999px;">${tag}</span>`).join('')}
-          </div>
-        </div>`).join('');
-    }
-
-    function renderSkillFilters() {
-      if (!skillsFilterContainer) return;
-      const skills = ['Todos', ...portfolioData.skills];
-      skillsFilterContainer.innerHTML = skills.map(skill => `<button class="skill-tag ${skill === 'Todos' ? 'active' : ''}" data-skill="${skill}">${skill}</button>`).join('');
-      skillsFilterContainer.querySelectorAll('.skill-tag[data-skill]').forEach(tag => {
-        tag.addEventListener('click', e => {
-          skillsFilterContainer.querySelector('.skill-tag.active[data-skill]').classList.remove('active');
-          e.target.classList.add('active');
-          renderProjects(e.target.dataset.skill);
-        });
-      });
-    }
-
-    // --- GRÁFICOS APEXCHARTS ---
-    const chartBaseOptions = {
-      chart: { background: 'transparent', toolbar: { show: false } },
-      tooltip: { theme: 'dark' },
-    };
-
-    const radarOptions = { ...chartBaseOptions,
-      chart: { ...chartBaseOptions.chart, type: 'radar', height: 280 },
-      series: [{ name: 'Nível', data: [90, 95, 85, 80, 80, 75, 95] }],
-      labels: portfolioData.skills,
-      colors: ['var(--accent-cyan)'],
-      yaxis: { show: false }, markers: { size: 4 },
-      fill: { opacity: 0.3 },
-      stroke: { show: true, width: 2, colors: ['var(--accent-cyan)'], dashArray: 0 }
-    };
-    if(document.querySelector("#chartRadar")) new ApexCharts(document.querySelector("#chartRadar"), radarOptions).render();
-    
-    const techCounts = {}; portfolioData.skills.forEach(skill => { techCounts[skill] = 0; });
-    portfolioData.projects.forEach(project => project.tags.forEach(tag => { if (techCounts.hasOwnProperty(tag)) techCounts[tag]++; }));
-    const barOptions = { ...chartBaseOptions,
-        chart: { ...chartBaseOptions.chart, type: 'bar', height: 280 },
-        series: [{ name: 'Projetos', data: Object.values(techCounts) }],
-        plotOptions: { bar: { horizontal: true, barHeight: '60%', borderRadius: 6, colors: { ranges: [{ from: 0, to: 10, color: 'var(--accent-cyan)' }] } } },
-        dataLabels: { enabled: false },
-        xaxis: { categories: Object.keys(techCounts), labels: { show: false }, max: Math.max(...Object.values(techCounts)) + 1 },
-        yaxis: { labels: { style: { colors: 'var(--muted)' } } },
-        grid: { borderColor: 'rgba(163, 163, 194, 0.1)' }
-    };
-    if(document.querySelector("#chartBar")) new ApexCharts(document.querySelector("#chartBar"), barOptions).render();
-
-    // --- RENDERIZAÇÃO INICIAL E EVENTOS ---
-    renderExperiences(); renderSkillFilters(); renderProjects();
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const contactForm = document.getElementById('contact-form'), submitBtn = document.getElementById('submit-btn'), toast = document.getElementById('toast-notification');
-    contactForm.addEventListener('submit', e => {
-      e.preventDefault(); submitBtn.disabled = true; submitBtn.textContent = 'Enviando...';
-      fetch(contactForm.action, { method: 'POST', body: new FormData(contactForm), headers: { 'Accept': 'application/json' }})
-      .then(res => {
-        if(res.ok) {
-          toast.textContent = 'Mensagem enviada! Obrigado pelo contato.';
-          toast.classList.add('show'); contactForm.reset();
-        } else { res.json().then(data => { toast.textContent = data.errors ? data.errors[0].message : 'Ocorreu um erro.'; toast.classList.add('show'); }); }
-      }).catch(() => { toast.textContent = 'Erro de conexão.'; toast.classList.add('show'); })
-      .finally(() => {
-        setTimeout(() => toast.classList.remove('show'), 4000);
-        submitBtn.disabled = false; submitBtn.textContent = 'Enviar Mensagem';
+    // 2. SPOTLIGHT EFFECT (Luz do Mouse nos Cards)
+    document.body.addEventListener('mousemove', (e) => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
       });
     });
-
-    const scrollProgress = document.getElementById('scroll-progress'), backToTopBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      scrollProgress.style.width = scrollPercent + '%';
-      backToTopBtn.classList.toggle('show', window.scrollY > 300);
-    });
-    backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    animatedElements.forEach(el => observer.observe(el));
-  });
   </script>
 </body>
 </html>
