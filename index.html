@@ -3,443 +3,754 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Nicolas Gonçalves - Creative Fullstack Engineer">
-  <title>Nicolas Gonçalves | Dev</title>
-  
+  <meta name="description" content="Nicolas Pereira Lucas Gonçalves - Desenvolvedor Fullstack. Java, Spring Boot, React e Node.js.">
+  <title>Nicolas P. L. Gonçalves | Fullstack Dev</title>
+
+  <!-- Fontes Premium -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <!-- Ícones -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
+      /* Paleta "Deep Space" */
       --bg: #030014;
-      --card-bg: rgba(255, 255, 255, 0.02);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+
       --text: #e2e8f0;
       --text-muted: #94a3b8;
+
+      /* Acentos Neon */
+      --primary: #8b5cf6; /* Roxo */
+      --cyan: #06b6d4;    /* Ciano */
+      --pink: #ec4899;    /* Rosa */
       
-      /* Cores Neon Refinadas */
-      --primary: #8b5cf6;  /* Roxo */
-      --cyan: #06b6d4;     /* Ciano */
-      --pink: #ec4899;     /* Rosa */
-      
-      --glow-size: 500px;
+      --glow-size: 600px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    html { 
+      scroll-behavior: smooth; 
+      scroll-padding-top: 100px; /* Para o header não tapar o título */
+    }
+
+    /* Scrollbar Personalizada */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
     body {
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* --- TEXTURA CINEMÁTICA (GRAIN) --- */
+    /* --- BACKGROUND FX --- */
     .grain-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999; opacity: 0.4;
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0.35;
     }
 
-    /* --- AURORA BACKGROUND --- */
+    .aurora-blob, .aurora-blob-2 {
+      position: fixed; border-radius: 50%; filter: blur(90px); z-index: -1;
+      animation: float 12s ease-in-out infinite;
+    }
     .aurora-blob {
-      position: fixed; top: -20%; left: 20%; width: 60vw; height: 60vw;
-      background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
-      filter: blur(80px); z-index: -1; animation: float 10s ease-in-out infinite;
+      top: -20%; left: 15%; width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(139,92,246,.22), transparent 70%);
     }
     .aurora-blob-2 {
-      position: fixed; bottom: -20%; right: -10%; width: 50vw; height: 50vw;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
-      filter: blur(80px); z-index: -1; animation: float 15s ease-in-out infinite reverse;
+      bottom: -25%; right: -10%; width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(6,182,212,.18), transparent 70%);
+      animation-duration: 16s;
     }
-    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, 40px); } }
+    @keyframes float { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,40px); } }
 
-    /* Layout */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .container { max-width: 1100px; margin: auto; padding: 0 24px; position: relative; z-index: 1; }
 
-    /* --- NAV GLASS --- */
+    /* --- NAVEGAÇÃO --- */
     nav {
       position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
-      background: rgba(3, 0, 20, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border); padding: 10px 6px;
-      border-radius: 100px; z-index: 100; display: flex; gap: 4px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      display: flex; gap: 4px; padding: 6px 8px; border-radius: 999px;
+      background: rgba(3,0,20,.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); z-index: 100;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+      align-items: center;
     }
-    nav a { 
-      color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; 
-      padding: 8px 20px; border-radius: 20px; transition: 0.3s;
+    nav a {
+      padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;
+      text-decoration: none; color: var(--text-muted); transition: .3s;
     }
-    nav a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+    nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+    
+    .lang-toggle {
+      margin-left: 8px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      color: #fff; border: none; cursor: pointer; transition: .3s; font-family: 'Space Grotesk';
+    }
+    .lang-toggle:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
 
     /* --- HERO --- */
     .hero {
-      min-height: 95vh; display: flex; align-items: center; justify-content: center;
-      flex-direction: column; text-align: center; padding-top: 100px;
-    }
-    
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(48px, 8vw, 88px); line-height: 1; font-weight: 700;
-      color: #fff; margin-bottom: 24px; letter-spacing: -2px;
-    }
-    
-    .gradient-text {
-      background: linear-gradient(135deg, #fff 30%, var(--text-muted));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    
-    .highlight {
-      background: linear-gradient(90deg, var(--cyan), var(--primary), var(--pink));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      min-height: 95vh; padding-top: 80px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
     }
 
-    /* TERMINAL TYPEWRITER */
+    h1 {
+      font-family: 'Space Grotesk'; font-size: clamp(40px, 6vw, 72px); font-weight: 700;
+      letter-spacing: -2px; margin-bottom: 24px; line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, var(--text-muted));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      font-family: 'Space Grotesk'; font-weight: 300; font-size: clamp(18px,4vw,24px);
+      color: var(--text-muted); max-width: 800px; margin-bottom: 40px;
+    }
+    .highlight {
+      background: linear-gradient(90deg, var(--cyan), var(--primary), var(--pink));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;
+    }
+
+    /* --- TERMINAL --- */
     .terminal-box {
-      width: 100%; max-width: 600px; background: #0a0a0a;
+      width: 100%; max-width: 680px; background: #0a0a0a;
       border: 1px solid var(--glass-border); border-radius: 12px;
-      overflow: hidden; margin: 40px auto; text-align: left;
-      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
+      overflow: hidden; box-shadow: 0 20px 50px -10px rgba(0,0,0,.6);
+      margin: 0 auto 40px; text-align: left;
     }
     .terminal-bar {
-      background: #171717; padding: 10px 16px; border-bottom: 1px solid var(--glass-border);
-      display: flex; gap: 8px;
+      background: #171717; padding: 10px 16px; display: flex; gap: 8px;
+      border-bottom: 1px solid var(--glass-border);
     }
     .dot { width: 10px; height: 10px; border-radius: 50%; }
     .terminal-content {
-      padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.6;
-      min-height: 140px; color: var(--text-muted);
+      padding: 24px; font-family: 'JetBrains Mono'; font-size: 13px;
+      color: var(--text-muted); min-height: 160px; line-height: 1.6;
     }
     .cursor { display: inline-block; width: 8px; height: 16px; background: var(--primary); animation: blink 1s infinite; vertical-align: sub; }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* GLOW BUTTONS */
-    .btn-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    /* --- BOTÕES CORRIGIDOS E MELHORADOS --- */
+    .btn-group { 
+      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: center; 
+    }
+    
+    /* Botão Principal */
     .btn-magic {
-      position: relative; padding: 1px; border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       background: linear-gradient(90deg, var(--primary), var(--cyan));
-      overflow: hidden; text-decoration: none;
+      padding: 14px 36px; border-radius: 8px;
+      color: #ffffff; font-weight: 700; text-decoration: none;
+      transition: all 0.3s ease; border: none; font-size: 15px;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
     }
-    .btn-inner {
-      background: #030014; padding: 12px 32px; border-radius: 7px;
-      color: #fff; font-weight: 600; font-size: 15px; display: block;
-      transition: 0.2s;
+    .btn-magic:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.5); 
     }
-    .btn-magic:hover .btn-inner { background: transparent; }
 
+    /* Botões Secundários */
     .btn-ghost {
-      padding: 12px 32px; border: 1px solid var(--glass-border); border-radius: 8px;
-      color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.2s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 24px; border-radius: 8px;
+      border: 1px solid var(--glass-border); color: var(--text-muted);
+      text-decoration: none; transition: .25s; font-weight: 500;
+      background: rgba(255,255,255,0.01);
     }
-    .btn-ghost:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+    .btn-ghost:hover { 
+      color: #fff; border-color: #fff; background: rgba(255,255,255,.05); transform: translateY(-3px);
+    }
 
     /* --- MARQUEE TECH --- */
     .marquee-wrap {
       width: 100%; overflow: hidden; padding: 60px 0;
       mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
     }
-    .marquee { display: flex; gap: 40px; animation: scroll 30s linear infinite; width: max-content; }
+    .marquee { display: flex; gap: 50px; animation: scroll 35s linear infinite; width: max-content; }
     .tech-icon {
-      font-family: 'Space Grotesk'; font-weight: 700; font-size: 18px; color: var(--text-muted);
-      display: flex; align-items: center; gap: 10px;
+      font-family: 'Space Grotesk'; font-weight: 700; font-size: 16px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px; letter-spacing: 1px;
     }
     .tech-icon i { color: #fff; }
     @keyframes scroll { to { transform: translateX(-50%); } }
 
-    /* --- PROJECTS (SPOTLIGHT) --- */
-    .section-header { font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin: 80px 0 40px; display: flex; align-items: center; gap: 20px; }
+    /* --- TÍTULOS E LINHAS --- */
+    .section-header {
+      font-family: 'Space Grotesk'; font-size: 32px; color: #fff;
+      margin: 80px 0 40px; display: flex; align-items: center; gap: 20px;
+    }
     .section-line { height: 1px; flex: 1; background: linear-gradient(90deg, var(--glass-border), transparent); }
 
+    /* --- GRID PROJETOS (Spotlight) --- */
     .grid-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
 
     .card {
       background: var(--card-bg); border-radius: 16px; position: relative;
       border: 1px solid var(--glass-border); overflow: hidden;
-      display: flex; flex-direction: column;
+      display: flex; flex-direction: column; transition: transform 0.3s;
+      backdrop-filter: blur(5px);
     }
-    
-    /* Mouse Spotlight Logic */
-    .card::before {
+    .card::before { /* Luz do mouse */
       content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
       background: radial-gradient(var(--glow-size) circle at var(--x) var(--y), rgba(255,255,255,0.06), transparent 40%);
       opacity: 0; transition: opacity 0.3s;
     }
     .card:hover::before { opacity: 1; }
-    
-    /* Border Glow Logic */
-    .card::after {
-      content: ""; position: absolute; inset: 0; border-radius: 16px; z-index: 1; pointer-events: none;
-      padding: 1px; 
+    .card::after { /* Borda brilhante */
+      content: ""; position: absolute; inset: 0; border-radius: 16px; z-index: 1; pointer-events: none; padding: 1px; 
       background: radial-gradient(var(--glow-size) circle at var(--x) var(--y), var(--primary), transparent 40%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
       opacity: 0; transition: opacity 0.3s;
     }
     .card:hover::after { opacity: 1; }
 
     .card-body { padding: 30px; position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; }
-    
     .proj-icon { margin-bottom: 20px; color: var(--cyan); }
     .proj-title { font-family: 'Space Grotesk'; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
     .proj-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
     .tag-container { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
     .tag { font-size: 11px; padding: 4px 10px; border: 1px solid var(--glass-border); border-radius: 6px; color: var(--text-muted); }
 
-    /* --- EXPERIENCE --- */
-    .xp-grid { display: grid; gap: 30px; margin-top: 40px; max-width: 800px; }
+    /* --- EXPERIÊNCIA E SIDEBAR --- */
+    .main-content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+
     .xp-card {
-      border-left: 2px solid var(--glass-border); padding: 0 0 0 30px; position: relative;
-      transition: 0.3s;
+      border-left: 2px solid var(--glass-border); padding: 0 0 20px 30px; position: relative; transition: 0.3s;
     }
+    .xp-card:last-child { padding-bottom: 0; }
     .xp-card::before {
       content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px;
       background: var(--bg); border: 2px solid var(--primary); border-radius: 50%;
       box-shadow: 0 0 15px var(--primary);
     }
     .xp-card:hover { border-left-color: var(--primary); }
-    .xp-role { font-family: 'Space Grotesk'; font-size: 18px; font-weight: 700; color: #fff; }
-    .xp-company { font-size: 14px; color: var(--cyan); margin-bottom: 8px; display: block; letter-spacing: 1px; text-transform: uppercase; }
+    .xp-role { font-family: 'Space Grotesk'; font-size: 18px; font-weight: 700; color: #fff; transition: color 0.3s; }
+    .xp-card:hover .xp-role { color: var(--primary); }
+    .xp-company { font-size: 13px; color: var(--cyan); margin-bottom: 8px; display: block; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
 
-    /* --- CONTACT --- */
-    .contact-section { margin: 120px 0 60px; text-align: center; }
+    .sidebar-card {
+      background: var(--card-bg); border: 1px solid var(--glass-border);
+      border-radius: 12px; padding: 24px; margin-bottom: 24px; backdrop-filter: blur(5px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .sidebar-card:hover { transform: translateY(-3px); border-color: rgba(139, 92, 246, 0.3); }
+    .sidebar-title { font-family: 'Space Grotesk'; color: #fff; font-size: 18px; margin-bottom: 16px; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; }
+    .sidebar-item { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+    .sidebar-item strong { color: #fff; display: block; margin-bottom: 2px; }
+
+    /* --- CONTATO --- */
+    .contact-section { margin: 80px 0 60px; text-align: center; }
     .contact-box {
       background: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(139, 92, 246, 0.05) 100%);
       border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px;
-      max-width: 600px; margin: 0 auto;
+      max-width: 600px; margin: 0 auto; backdrop-filter: blur(10px);
     }
     input, textarea {
-      width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
-      padding: 14px; border-radius: 8px; color: #fff; margin-bottom: 16px; font-family: inherit;
-      transition: 0.3s;
+      width: 100%; background: #0a0a0a; border: 1px solid var(--glass-border);
+      padding: 16px; border-radius: 8px; color: #fff; margin-bottom: 16px; 
+      font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: 0.3s;
     }
     input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
 
     footer { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--glass-border); }
 
-    @media(max-width: 768px) {
-      h1 { font-size: 42px; }
-      nav { width: 90%; justify-content: center; top: 20px; }
-      .marquee { animation-duration: 15s; }
+    @media(max-width: 850px) {
+      h1 { font-size: 36px; }
+      nav { width: 95%; justify-content: center; top: 16px; }
+      .main-content-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
+
 <body>
+<div class="grain-overlay"></div>
+<div class="aurora-blob"></div>
+<div class="aurora-blob-2"></div>
 
-  <!-- Background FX -->
-  <div class="grain-overlay"></div>
-  <div class="aurora-blob"></div>
-  <div class="aurora-blob-2"></div>
+<nav>
+  <a href="#about" data-i18n="nav-about">Sobre</a>
+  <a href="#projects" data-i18n="nav-projects">Projetos</a>
+  <a href="#experience" data-i18n="nav-career">Carreira</a>
+  <a href="#contact" data-i18n="nav-contact">Contato</a>
+  <button class="lang-toggle" id="langToggle">EN</button>
+</nav>
 
-  <nav>
-    <a href="#about">Sobre</a>
-    <a href="#projects">Work</a>
-    <a href="#contact">Contato</a>
-  </nav>
+<main class="container">
 
-  <main class="container">
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <h1>Nicolas P. L. Gonçalves</h1>
+    <h2 data-i18n="hero-subtitle">
+      Desenvolvedor Fullstack apaixonado por automação e performance.<br>
+      Especialista em <span class="highlight">Java, Spring Boot e React</span>.
+    </h2>
+
+    <!-- TERMINAL -->
+    <div class="terminal-box">
+      <div class="terminal-bar">
+        <div class="dot" style="background:#ef4444"></div>
+        <div class="dot" style="background:#eab308"></div>
+        <div class="dot" style="background:#22c55e"></div>
+      </div>
+      <div class="terminal-content" id="typewriter"></div>
+    </div>
+
+    <!-- BOTÕES (CORRIGIDOS) -->
+    <div class="btn-group">
+      <a href="#projects" class="btn-magic" data-i18n="explore-projects">
+        Explorar Projetos
+      </a>
+      <a href="https://github.com/Nicolasplgn" target="_blank" class="btn-ghost">
+        <i data-lucide="github" style="width: 16px;"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/nicolas-pereira-lucas-goncalves-4466b5326/" target="_blank" class="btn-ghost">
+        <i data-lucide="linkedin" style="width: 16px;"></i> LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <!-- TECH SCROLL -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <div class="tech-icon"><i data-lucide="coffee"></i> JAVA</div>
+      <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
+      <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
+      <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
+      <div class="tech-icon"><i data-lucide="server"></i> NODE.JS</div>
+      <div class="tech-icon"><i data-lucide="database"></i> ORACLE SQL</div>
+      <div class="tech-icon"><i data-lucide="container"></i> DOCKER</div>
+      <div class="tech-icon"><i data-lucide="code-2"></i> C</div>
+      <div class="tech-icon"><i data-lucide="layers"></i> NESTJS</div>
+      <!-- Repetição para infinito -->
+      <div class="tech-icon"><i data-lucide="coffee"></i> JAVA</div>
+      <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
+      <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
+      <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
+    </div>
+  </div>
+
+  <!-- PROJETOS -->
+  <h2 class="section-header" id="projects"><span data-i18n="projects-title">Projetos Relevantes</span> <div class="section-line"></div></h2>
+  
+  <div class="grid-projects" id="cards-container">
     
-    <!-- HERO SECTION -->
-    <section class="hero" id="about">
-      <h1 class="gradient-text">
-        Nicolas Gonçalves
-      </h1>
-      <h2 style="font-family: 'Space Grotesk'; font-size: clamp(20px, 4vw, 32px); color: var(--text-muted); font-weight: 300; margin-bottom: 30px;">
-        Arquitetando o futuro com <span class="highlight">Código & Inovação</span>
-      </h2>
-
-      <div class="terminal-box">
-        <div class="terminal-bar">
-          <div class="dot" style="background:#ef4444"></div>
-          <div class="dot" style="background:#eab308"></div>
-          <div class="dot" style="background:#22c55e"></div>
+    <!-- Kanban -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="kanban" width="32" height="32"></i></div>
+        <div class="proj-title">Kanban API</div>
+        <p class="proj-desc" data-i18n="proj-kanban-desc">API REST com autenticação JWT, CRUD completo, relatórios automáticos e integração com banco H2.</p>
+        <div class="tag-container">
+          <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">JWT</span>
         </div>
-        <div class="terminal-content" id="typewriter">
-          <!-- Texto gerado via JS -->
-        </div>
-      </div>
-
-      <div class="btn-group">
-        <a href="#projects" class="btn-magic">
-          <span class="btn-inner">Explorar Projetos</span>
-        </a>
-        <a href="/seu-curriculo.pdf" download class="btn-ghost">
-          <i data-lucide="download" style="width: 16px; vertical-align: middle;"></i> Currículo
-        </a>
-      </div>
-    </section>
-
-    <!-- TECH MARQUEE -->
-    <div class="marquee-wrap">
-      <div class="marquee">
-        <!-- Ícones repetidos para efeito infinito -->
-        <div class="tech-icon"><i data-lucide="coffee"></i> JAVA 17</div>
-        <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
-        <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
-        <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
-        <div class="tech-icon"><i data-lucide="server"></i> NODE.JS</div>
-        <div class="tech-icon"><i data-lucide="container"></i> DOCKER</div>
-        <div class="tech-icon"><i data-lucide="database"></i> POSTGRESQL</div>
-        <div class="tech-icon"><i data-lucide="cloud"></i> AWS</div>
-        <!-- Repetição -->
-        <div class="tech-icon"><i data-lucide="coffee"></i> JAVA 17</div>
-        <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
-        <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
-        <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
-        <div class="tech-icon"><i data-lucide="server"></i> NODE.JS</div>
-        <div class="tech-icon"><i data-lucide="container"></i> DOCKER</div>
+        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
       </div>
     </div>
 
-    <!-- PROJECTS WITH SPOTLIGHT -->
-    <h2 class="section-header" id="projects">Selected Works <div class="section-line"></div></h2>
-    
-    <div class="grid-projects" id="cards-container">
-      
-      <!-- Projeto 1: Wave PDV -->
-      <div class="card">
-        <div class="card-body">
-          <div class="proj-icon"><i data-lucide="shopping-bag" width="32" height="32"></i></div>
-          <div class="proj-title">Wave PDV</div>
-          <p class="proj-desc">Sistema de Ponto de Venda completo. Gestão de vendas, controle de estoque e emissão de notas fiscais.</p>
-          <div class="tag-container">
-            <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span>
-          </div>
-          <a href="https://github.com/sirlovani/wave_pdv" target="_blank" style="position: absolute; inset:0;"></a>
+    <!-- Livraria Digital -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="book" width="32" height="32"></i></div>
+        <div class="proj-title" data-i18n="proj-library-title">Livraria Digital</div>
+        <p class="proj-desc" data-i18n="proj-library-desc">Sistema de gerenciamento de livros, autores e avaliações utilizando arquitetura moderna.</p>
+        <div class="tag-container">
+          <span class="tag">NestJS</span><span class="tag">TypeORM</span><span class="tag">TypeScript</span>
         </div>
+        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
       </div>
-
-      <!-- Projeto 2: Sistema Financeiro -->
-      <div class="card">
-        <div class="card-body">
-          <div class="proj-icon"><i data-lucide="dollar-sign" width="32" height="32"></i></div>
-          <div class="proj-title">Sistema Financeiro HDL</div>
-          <p class="proj-desc">Solução para gestão financeira corporativa. Controle de fluxo de caixa, contas a pagar/receber e relatórios estratégicos.</p>
-          <div class="tag-container">
-            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Docker</span>
-          </div>
-          <a href="https://github.com/Nicolasplgn/sistema-financeiro-hdl" target="_blank" style="position: absolute; inset:0;"></a>
-        </div>
-      </div>
-
-      <!-- Projeto 3: Agenda de Reuniões -->
-      <div class="card">
-        <div class="card-body">
-          <div class="proj-icon"><i data-lucide="calendar" width="32" height="32"></i></div>
-          <div class="proj-title">Agenda de Reuniões</div>
-          <p class="proj-desc">Sistema corporativo para reserva de salas e gerenciamento de atas. Otimização do tempo e recursos da empresa.</p>
-          <div class="tag-container">
-            <span class="tag">Java</span><span class="tag">Spring</span><span class="tag">API REST</span>
-          </div>
-          <a href="https://github.com/Nicolasplgn/Sistema-de-Agenda-de-Reuni-es" target="_blank" style="position: absolute; inset:0;"></a>
-        </div>
-      </div>
-
-      <!-- Projeto 4: Lucas Gabriel Personal -->
-      <div class="card">
-        <div class="card-body">
-          <div class="proj-icon"><i data-lucide="user" width="32" height="32"></i></div>
-          <div class="proj-title">Lucas Gabriel Personal</div>
-          <p class="proj-desc">Plataforma web para Personal Trainer. Landing page de alta conversão, apresentação de serviços e contato.</p>
-          <div class="tag-container">
-            <span class="tag">React</span><span class="tag">Tailwind</span><span class="tag">Frontend</span>
-          </div>
-          <a href="https://github.com/Nicolasplgn/Lucas_Gabriel_personal" target="_blank" style="position: absolute; inset:0;"></a>
-        </div>
-      </div>
-
     </div>
 
-    <!-- EXPERIENCE -->
-    <h2 class="section-header">Timeline <div class="section-line"></div></h2>
+    <!-- Sistema Suporte -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="life-buoy" width="32" height="32"></i></div>
+        <div class="proj-title" data-i18n="proj-support-title">Sistema Suporte</div>
+        <p class="proj-desc" data-i18n="proj-support-desc">API RESTful desenvolvida para monitoramento eficiente de incidentes e operações de TI.</p>
+        <div class="tag-container">
+          <span class="tag">Node.js</span><span class="tag">API REST</span><span class="tag">Monitoring</span>
+        </div>
+        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
+      </div>
+    </div>
+
+    <!-- PDV Wave -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="shopping-cart" width="32" height="32"></i></div>
+        <div class="proj-title">PDV WAVE</div>
+        <p class="proj-desc" data-i18n="proj-pdv-desc">Frente de caixa totalmente online que funciona em contingência offline usando IndexedDB.</p>
+        <div class="tag-container">
+          <span class="tag">React</span><span class="tag">IndexedDB</span><span class="tag">Offline-First</span>
+        </div>
+        <a href="https://github.com/sirlovani/wave_pdv" target="_blank" style="position: absolute; inset:0;"></a>
+      </div>
+    </div>
+
+    <!-- Gerador de Senhas -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="lock" width="32" height="32"></i></div>
+        <div class="proj-title" data-i18n="proj-password-title">Gerador de Senhas</div>
+        <p class="proj-desc" data-i18n="proj-password-desc">Aplicação segura para geração de credenciais com testes automatizados.</p>
+        <div class="tag-container">
+          <span class="tag">Java</span><span class="tag">JUnit</span><span class="tag">Maven</span>
+        </div>
+        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
+      </div>
+    </div>
+
+    <!-- Agenda -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="calendar" width="32" height="32"></i></div>
+        <div class="proj-title" data-i18n="proj-agenda-title">Agenda de Reuniões</div>
+        <p class="proj-desc" data-i18n="proj-agenda-desc">Sistema de gestão para controle de reuniões e atas corporativas.</p>
+        <div class="tag-container">
+          <span class="tag">Java</span><span class="tag">Spring</span><span class="tag">Web</span>
+        </div>
+        <a href="https://github.com/Nicolasplgn/Sistema-de-Agenda-de-Reuni-es" target="_blank" style="position: absolute; inset:0;"></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTEÚDO DIVIDIDO (Experiência + Sidebar) -->
+  <h2 class="section-header" id="experience"><span data-i18n="experience-title">Trajetória Profissional</span> <div class="section-line"></div></h2>
+  
+  <div class="main-content-grid">
+    <!-- Esquerda: Experiência -->
     <div class="xp-grid">
       
       <div class="xp-card">
-        <span class="xp-company">VECTOR SOLUÇÕES DIGITAIS • JUN 2025 - ATUAL</span>
-        <div class="xp-role">Analista e Desenvolvedor Fullstack</div>
-        <p style="color: var(--text-muted); margin-top: 8px;">
-          Liderança em automação (RPA). Desenvolvi bots que reduziram 40% da carga manual, focando em eficiência operacional e redução de custos.
+        <span class="xp-company" data-i18n="xp-vector-company">VECTOR SOLUÇÕES DIGITAIS • JUN/2025 – ATUAL</span>
+        <div class="xp-role" data-i18n="xp-vector-role">Analista de Processos de TI e Desenvolvedor</div>
+        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-vector-desc">
+          Responsável por análise e automação de processos no sistema Tareffa, otimizando fluxos. Desenvolvimento de soluções internas, manutenção e criação de robôs de atendimento automatizado (DigSac).
         </p>
       </div>
 
       <div class="xp-card">
-        <span class="xp-company">SG SISTEMAS • FEV 2025 - JUN 2025</span>
-        <div class="xp-role">Analista de Suporte Web</div>
-        <p style="color: var(--text-muted); margin-top: 8px;">
-          Sustentação de APIs e Servidores Linux. Garantia de SLA em ambientes críticos de produção e resolução de incidentes N3.
+        <span class="xp-company" data-i18n="xp-sg-company">SG SISTEMAS • FEV/2025 – JUN/2025</span>
+        <div class="xp-role" data-i18n="xp-sg-role">Analista de Suporte Web</div>
+        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-sg-desc">
+          Atendimento técnico especializado em sistemas web. Configuração e monitoramento de servidores Linux, análise de logs e suporte a integrações.
+        </p>
+      </div>
+
+      <div class="xp-card">
+        <span class="xp-company" data-i18n="xp-prefeitura-company">PREFEITURA DE SARANDI • 2023 – 2024</span>
+        <div class="xp-role" data-i18n="xp-prefeitura-role">Chefe da Divisão de Informática</div>
+        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-prefeitura-desc">
+          Gestão de infraestrutura tecnológica e manutenção de sistemas internos. Suporte técnico, formatação e manutenção de equipamentos e redes.
+        </p>
+      </div>
+
+      <div class="xp-card">
+        <span class="xp-company" data-i18n="xp-tccc-company">TCCC – EMPRESA DE ÔNIBUS • 2021 – 2023</span>
+        <div class="xp-role" data-i18n="xp-tccc-role">Auxiliar de Escritório</div>
+        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-tccc-desc">
+          Apoio administrativo, gestão de documentos e implementação de melhorias em processos internos utilizando Office.
         </p>
       </div>
       
     </div>
 
-    <!-- CONTACT -->
-    <section class="contact-section" id="contact">
-      <div class="contact-box">
-        <h2 style="font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin-bottom: 16px;">Pronto para inovar?</h2>
-        <p style="margin-bottom: 32px; color: var(--text-muted);">
-          Estou disponível para novos desafios. Vamos conversar sobre como posso ajudar seu time.
-        </p>
-        <form action="https://formspree.io/f/manpgeaw" method="POST">
-          <input type="email" name="email" placeholder="Seu email corporativo" required>
-          <textarea name="message" rows="4" placeholder="Como posso ajudar?" required></textarea>
-          <button type="submit" class="btn-magic" style="width:100%; border:none; cursor:pointer;">
-            <span class="btn-inner">Enviar Mensagem</span>
-          </button>
-        </form>
+    <!-- Direita: Formação e Skills -->
+    <aside>
+      <div class="sidebar-card">
+        <div class="sidebar-title"><i data-lucide="graduation-cap" style="vertical-align: middle;"></i> <span data-i18n="sidebar-education">Formação</span></div>
+        <div class="sidebar-item">
+          <strong data-i18n="education-degree">Engenharia de Software</strong>
+          <span data-i18n="education-university">Universidade Unicesumar</span><br>
+          <span style="color: var(--cyan);" data-i18n="education-period">2023 – 2026 (6º Semestre)</span>
+        </div>
       </div>
-    </section>
 
-  </main>
+      <div class="sidebar-card">
+        <div class="sidebar-title"><i data-lucide="languages" style="vertical-align: middle;"></i> <span data-i18n="sidebar-languages">Idiomas</span></div>
+        <div class="sidebar-item">
+          <strong data-i18n="lang-portuguese">Português</strong>
+          <span data-i18n="lang-native">Nativo</span>
+        </div>
+        <div class="sidebar-item">
+          <strong data-i18n="lang-english">Inglês</strong>
+          <span data-i18n="lang-advanced">Avançado (CCAA/Fisk)</span>
+        </div>
+      </div>
 
-  <footer>
-    <p>© 2025 Nicolas Gonçalves. Crafted with code.</p>
-  </footer>
+      <div class="sidebar-card">
+        <div class="sidebar-title"><i data-lucide="award" style="vertical-align: middle;"></i> <span data-i18n="sidebar-certifications">Certificações</span></div>
+        <div class="sidebar-item" data-i18n="certifications-list">
+          • Udemy: Java Completo, MySQL, Web<br>
+          • Microsoft Office Intermediário<br>
+        </div>
+      </div>
 
-  <script>
-    lucide.createIcons();
+      <div class="sidebar-card">
+        <div class="sidebar-title"><i data-lucide="user-check" style="vertical-align: middle;"></i> <span data-i18n="sidebar-softskills">Soft Skills</span></div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="tag" data-i18n="skill-leadership">Liderança</span>
+          <span class="tag" data-i18n="skill-communication">Comunicação</span>
+          <span class="tag" data-i18n="skill-creativity">Criatividade</span>
+          <span class="tag" data-i18n="skill-proactivity">Proatividade</span>
+          <span class="tag" data-i18n="skill-scrum">Scrum</span>
+        </div>
+      </div>
+    </aside>
+  </div>
 
-    // 1. TYPEWRITER EFFECT (O Efeito do Terminal)
-    const textToType = `const developer = {
-  name: 'Nicolas Gonçalves',
-  role: 'Fullstack Engineer',
-  skills: ['Java', 'Spring', 'React', 'AWS'],
-  hardWorker: true,
-  hireable: function() {
-    return "Let's build the future.";
-  }
-};`;
-    const typeContainer = document.getElementById('typewriter');
-    let i = 0;
+  <!-- CONTATO -->
+  <section class="contact-section" id="contact">
+    <div class="contact-box">
+      <h2 style="font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin-bottom: 16px;" data-i18n="contact-title">Contato Profissional</h2>
+      <p style="margin-bottom: 32px; color: var(--text-muted);">
+        (44) 99715-9587 | Sarandi - PR
+      </p>
+      <form action="https://formspree.io/f/manpgeaw" method="POST">
+        <input type="email" name="email" data-i18n-placeholder="contact-email-placeholder" placeholder="Seu email" required>
+        <textarea name="message" rows="4" data-i18n-placeholder="contact-message-placeholder" placeholder="Mensagem..." required></textarea>
+        <button type="submit" class="btn-magic" style="width:100%; border:none; cursor:pointer;">
+          <span data-i18n="contact-send">Enviar Email</span>
+        </button>
+      </form>
+    </div>
+  </section>
 
-    function typeWriter() {
-      if (i < textToType.length) {
-        // Adiciona cor aos elementos chave para parecer código real
-        let char = textToType.charAt(i);
-        if(char === '\n') char = '<br>';
-        typeContainer.innerHTML += char;
-        i++;
-        setTimeout(typeWriter, 30); // Velocidade da digitação
-      } else {
-        typeContainer.innerHTML += '<span class="cursor"></span>';
+</main>
+
+<footer>
+  <p data-i18n="footer-text">© 2026 Nicolas Pereira Lucas Gonçalves. Desenvolvido com paixão.</p>
+</footer>
+
+<script>
+  // Sistema de Tradução
+  const translations = {
+    pt: {
+      'nav-about': 'Sobre',
+      'nav-projects': 'Projetos',
+      'nav-career': 'Carreira',
+      'nav-contact': 'Contato',
+      'hero-subtitle': 'Desenvolvedor Fullstack apaixonado por automação e performance.<br>Especialista em <span class="highlight">Java, Spring Boot e React</span>.',
+      'explore-projects': 'Explorar Projetos',
+      'projects-title': 'Projetos Relevantes',
+      'proj-kanban-desc': 'API REST com autenticação JWT, CRUD completo, relatórios automáticos e integração com banco H2.',
+      'proj-library-title': 'Livraria Digital',
+      'proj-library-desc': 'Sistema de gerenciamento de livros, autores e avaliações utilizando arquitetura moderna.',
+      'proj-support-title': 'Sistema Suporte',
+      'proj-support-desc': 'API RESTful desenvolvida para monitoramento eficiente de incidentes e operações de TI.',
+      'proj-pdv-desc': 'Frente de caixa totalmente online que funciona em contingência offline usando IndexedDB.',
+      'proj-password-title': 'Gerador de Senhas',
+      'proj-password-desc': 'Aplicação segura para geração de credenciais com testes automatizados.',
+      'proj-agenda-title': 'Agenda de Reuniões',
+      'proj-agenda-desc': 'Sistema de gestão para controle de reuniões e atas corporativas.',
+      'experience-title': 'Trajetória Profissional',
+      'xp-vector-company': 'VECTOR SOLUÇÕES DIGITAIS • JUN/2025 – ATUAL',
+      'xp-vector-role': 'Analista de Processos de TI e Desenvolvedor',
+      'xp-vector-desc': 'Responsável por análise e automação de processos no sistema Tareffa, otimizando fluxos. Desenvolvimento de soluções internas, manutenção e criação de robôs de atendimento automatizado (DigSac).',
+      'xp-sg-company': 'SG SISTEMAS • FEV/2025 – JUN/2025',
+      'xp-sg-role': 'Analista de Suporte Web',
+      'xp-sg-desc': 'Atendimento técnico especializado em sistemas web. Configuração e monitoramento de servidores Linux, análise de logs e suporte a integrações.',
+      'xp-prefeitura-company': 'PREFEITURA DE SARANDI • 2023 – 2024',
+      'xp-prefeitura-role': 'Chefe da Divisão de Informática',
+      'xp-prefeitura-desc': 'Gestão de infraestrutura tecnológica e manutenção de sistemas internos. Suporte técnico, formatação e manutenção de equipamentos e redes.',
+      'xp-tccc-company': 'TCCC – EMPRESA DE ÔNIBUS • 2021 – 2023',
+      'xp-tccc-role': 'Auxiliar de Escritório',
+      'xp-tccc-desc': 'Apoio administrativo, gestão de documentos e implementação de melhorias em processos internos utilizando Office.',
+      'sidebar-education': 'Formação',
+      'education-degree': 'Engenharia de Software',
+      'education-university': 'Universidade Unicesumar',
+      'education-period': '2023 – 2026 (6º Semestre)',
+      'sidebar-languages': 'Idiomas',
+      'lang-portuguese': 'Português',
+      'lang-native': 'Nativo',
+      'lang-english': 'Inglês',
+      'lang-advanced': 'Avançado (CCAA/Fisk)',
+      'sidebar-certifications': 'Certificações',
+      'certifications-list': '• Udemy: Java Completo, MySQL, Web<br>• Microsoft Office Intermediário<br>',
+      'sidebar-softskills': 'Soft Skills',
+      'skill-leadership': 'Liderança',
+      'skill-communication': 'Comunicação',
+      'skill-creativity': 'Criatividade',
+      'skill-proactivity': 'Proatividade',
+      'skill-scrum': 'Scrum',
+      'contact-title': 'Contato Profissional',
+      'contact-email-placeholder': 'Seu email',
+      'contact-message-placeholder': 'Mensagem...',
+      'contact-send': 'Enviar Email',
+      'footer-text': '© 2026 Nicolas Pereira Lucas Gonçalves. Desenvolvido com paixão.',
+      'terminal-text': `> Resumo Profissional carregado...
+> Desenvolvedor Fullstack
+> Stack: Java, TypeScript, JavaScript
+> Frameworks: Spring Boot, React, Node.js
+> Foco: Automação, APIs RESTful e Inovação.
+> Status: Disponível para projetos.`
+    },
+    en: {
+      'nav-about': 'About',
+      'nav-projects': 'Projects',
+      'nav-career': 'Career',
+      'nav-contact': 'Contact',
+      'hero-subtitle': 'Fullstack Developer passionate about automation and performance.<br>Specialist in <span class="highlight">Java, Spring Boot and React</span>.',
+      'explore-projects': 'Explore Projects',
+      'projects-title': 'Relevant Projects',
+      'proj-kanban-desc': 'REST API with JWT authentication, complete CRUD, automatic reports and H2 database integration.',
+      'proj-library-title': 'Digital Library',
+      'proj-library-desc': 'Book, author and review management system using modern architecture.',
+      'proj-support-title': 'Support System',
+      'proj-support-desc': 'RESTful API developed for efficient monitoring of incidents and IT operations.',
+      'proj-pdv-desc': 'Fully online point of sale that works in offline contingency using IndexedDB.',
+      'proj-password-title': 'Password Generator',
+      'proj-password-desc': 'Secure application for credential generation with automated tests.',
+      'proj-agenda-title': 'Meeting Scheduler',
+      'proj-agenda-desc': 'Management system for controlling meetings and corporate minutes.',
+      'experience-title': 'Professional Journey',
+      'xp-vector-company': 'VECTOR SOLUÇÕES DIGITAIS • JUN/2025 – CURRENT',
+      'xp-vector-role': 'IT Process Analyst and Developer',
+      'xp-vector-desc': 'Responsible for analysis and automation of processes in the Tareffa system, optimizing workflows. Development of internal solutions, maintenance and creation of automated support robots (DigSac).',
+      'xp-sg-company': 'SG SISTEMAS • FEB/2025 – JUN/2025',
+      'xp-sg-role': 'Web Support Analyst',
+      'xp-sg-desc': 'Specialized technical support for web systems. Linux server configuration and monitoring, log analysis and integration support.',
+      'xp-prefeitura-company': 'SARANDI CITY HALL • 2023 – 2024',
+      'xp-prefeitura-role': 'IT Division Chief',
+      'xp-prefeitura-desc': 'Management of technological infrastructure and maintenance of internal systems. Technical support, formatting and maintenance of equipment and networks.',
+      'xp-tccc-company': 'TCCC – BUS COMPANY • 2021 – 2023',
+      'xp-tccc-role': 'Office Assistant',
+      'xp-tccc-desc': 'Administrative support, document management and implementation of improvements in internal processes using Office.',
+      'sidebar-education': 'Education',
+      'education-degree': 'Software Engineering',
+      'education-university': 'Unicesumar University',
+      'education-period': '2023 – 2026 (6th Semester)',
+      'sidebar-languages': 'Languages',
+      'lang-portuguese': 'Portuguese',
+      'lang-native': 'Native',
+      'lang-english': 'English',
+      'lang-advanced': 'Advanced (CCAA/Fisk)',
+      'sidebar-certifications': 'Certifications',
+      'certifications-list': '• Udemy: Complete Java, MySQL, Web<br>• Microsoft Office Intermediate<br>',
+      'sidebar-softskills': 'Soft Skills',
+      'skill-leadership': 'Leadership',
+      'skill-communication': 'Communication',
+      'skill-creativity': 'Creativity',
+      'skill-proactivity': 'Proactivity',
+      'skill-scrum': 'Scrum',
+      'contact-title': 'Professional Contact',
+      'contact-email-placeholder': 'Your email',
+      'contact-message-placeholder': 'Message...',
+      'contact-send': 'Send Email',
+      'footer-text': '© 2026 Nicolas Pereira Lucas Gonçalves. Developed with passion.',
+      'terminal-text': `> Professional Summary loaded...
+> Fullstack Developer
+> Stack: Java, TypeScript, JavaScript
+> Frameworks: Spring Boot, React, Node.js
+> Focus: Automation, RESTful APIs and Innovation.
+> Status: Available for projects.`
+    }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'pt';
+  const langToggle = document.getElementById('langToggle');
+  let typewriterTimeout = null;
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    langToggle.textContent = lang === 'pt' ? 'EN' : 'PT';
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
       }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (translations[lang][key]) {
+        el.placeholder = translations[lang][key];
+      }
+    });
+
+    // Atualizar terminal
+    if (lang === 'pt') {
+      document.documentElement.setAttribute('lang', 'pt-BR');
+    } else {
+      document.documentElement.setAttribute('lang', 'en');
     }
     
-    // Inicia a digitação quando a página carrega
-    window.onload = typeWriter;
+    // Recarregar typewriter
+    const typeContainer = document.getElementById('typewriter');
+    if (typeContainer) {
+      if (typewriterTimeout) {
+        clearTimeout(typewriterTimeout);
+        typewriterTimeout = null;
+      }
+      
+      typeContainer.innerHTML = '';
+      const textToType = translations[lang]['terminal-text'];
+      let displayedText = '';
+      let i = 0;
+      
+      function typeWriter() {
+        if (i < textToType.length) {
+          const char = textToType.charAt(i);
+          if (char === '\n') {
+            displayedText += '<br>';
+          } else {
+            displayedText += char === '&' ? '&amp;' : char;
+          }
+          typeContainer.innerHTML = displayedText;
+          i++;
+          typewriterTimeout = setTimeout(typeWriter, 30);
+        } else {
+          typeContainer.innerHTML = displayedText + '<span class="cursor"></span>';
+          typewriterTimeout = null;
+        }
+      }
+      
+      typeWriter();
+    }
+    
+    setTimeout(() => lucide.createIcons(), 100);
+  }
 
-    // 2. SPOTLIGHT EFFECT (Luz do Mouse nos Cards)
-    document.body.addEventListener('mousemove', (e) => {
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--x', `${x}px`);
-        card.style.setProperty('--y', `${y}px`);
-      });
+  langToggle.addEventListener('click', () => {
+    setLanguage(currentLang === 'pt' ? 'en' : 'pt');
+  });
+
+  // Inicialização
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      setLanguage(currentLang);
     });
-  </script>
+  } else {
+    lucide.createIcons();
+    setLanguage(currentLang);
+  }
+
+  // Mouse Tracking
+  document.body.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--x', `${x}px`);
+      card.style.setProperty('--y', `${y}px`);
+    });
+  });
+</script>
 </body>
 </html>
