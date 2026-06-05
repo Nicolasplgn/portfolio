@@ -141,7 +141,7 @@
     .cursor { display: inline-block; width: 8px; height: 16px; background: var(--primary); animation: blink 1s infinite; vertical-align: sub; }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* --- BOTÕES CORRIGIDOS E MELHORADOS --- */
+    /* --- BOTÕES --- */
     .btn-group { 
       display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: center; 
     }
@@ -315,7 +315,7 @@
       <a href="https://github.com/Nicolasplgn" target="_blank" class="btn-ghost">
         <i data-lucide="github" style="width: 16px;"></i> GitHub
       </a>
-      <a href="https://www.linkedin.com/in/nicolas-pereira-lucas-goncalves-4466b5326/" target="_blank" class="btn-ghost">
+      <a href="https://www.linkedin.com/in/n%C3%ADcolas-pereira-lucas-gon%C3%A7alves-4466b5326/" target="_blank" class="btn-ghost">
         <i data-lucide="linkedin" style="width: 16px;"></i> LinkedIn
       </a>
     </div>
@@ -350,6 +350,19 @@
   
   <div class="grid-projects" id="cards-container">
     
+    <!-- Beach Tennis ERP -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="trophy" width="32" height="32"></i></div>
+        <div class="proj-title" data-i18n="proj-beach-title">Beach Tennis ERP</div>
+        <p class="proj-desc" data-i18n="proj-beach-desc">Sistema de gestão para arenas de Beach Tennis, facilitando o controle de agendamentos, quadras e clientes.</p>
+        <div class="tag-container">
+          <span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">ERP</span>
+        </div>
+        <a href="https://github.com/Nicolasplgn/beach-tennis-erp" target="_blank" style="position: absolute; inset:0;"></a>
+      </div>
+    </div>
+
     <!-- Kanban -->
     <div class="card">
       <div class="card-body">
@@ -399,6 +412,19 @@
           <span class="tag">React</span><span class="tag">IndexedDB</span><span class="tag">Offline-First</span>
         </div>
         <a href="https://github.com/sirlovani/wave_pdv" target="_blank" style="position: absolute; inset:0;"></a>
+      </div>
+    </div>
+
+    <!-- Sistema Financeiro -->
+    <div class="card">
+      <div class="card-body">
+        <div class="proj-icon"><i data-lucide="dollar-sign" width="32" height="32"></i></div>
+        <div class="proj-title" data-i18n="proj-finance-title">Sistema Financeiro</div>
+        <p class="proj-desc" data-i18n="proj-finance-desc">Plataforma para controle financeiro, com registros de fluxo de caixa de forma simplificada.</p>
+        <div class="tag-container">
+          <span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
+        </div>
+        <a href="https://github.com/Nicolasplgn/sistema-financeiro-hdl" target="_blank" style="position: absolute; inset:0;"></a>
       </div>
     </div>
 
@@ -549,12 +575,16 @@
       'hero-subtitle': 'Desenvolvedor Fullstack apaixonado por automação e performance.<br>Especialista em <span class="highlight">Java, Spring Boot e React</span>.',
       'explore-projects': 'Explorar Projetos',
       'projects-title': 'Projetos Relevantes',
+      'proj-beach-title': 'Beach Tennis ERP',
+      'proj-beach-desc': 'Sistema de gestão para arenas de Beach Tennis, facilitando o controle de agendamentos, quadras e clientes.',
       'proj-kanban-desc': 'API REST com autenticação JWT, CRUD completo, relatórios automáticos e integração com banco H2.',
       'proj-library-title': 'Livraria Digital',
       'proj-library-desc': 'Sistema de gerenciamento de livros, autores e avaliações utilizando arquitetura moderna.',
       'proj-support-title': 'Sistema Suporte',
       'proj-support-desc': 'API RESTful desenvolvida para monitoramento eficiente de incidentes e operações de TI.',
       'proj-pdv-desc': 'Frente de caixa totalmente online que funciona em contingência offline usando IndexedDB.',
+      'proj-finance-title': 'Sistema Financeiro',
+      'proj-finance-desc': 'Plataforma para controle financeiro, com registros de fluxo de caixa de forma simplificada.',
       'proj-password-title': 'Gerador de Senhas',
       'proj-password-desc': 'Aplicação segura para geração de credenciais com testes automatizados.',
       'proj-agenda-title': 'Agenda de Reuniões',
@@ -609,12 +639,16 @@
       'hero-subtitle': 'Fullstack Developer passionate about automation and performance.<br>Specialist in <span class="highlight">Java, Spring Boot and React</span>.',
       'explore-projects': 'Explore Projects',
       'projects-title': 'Relevant Projects',
+      'proj-beach-title': 'Beach Tennis ERP',
+      'proj-beach-desc': 'Management system for Beach Tennis arenas, facilitating control over bookings, courts, and clients.',
       'proj-kanban-desc': 'REST API with JWT authentication, complete CRUD, automatic reports and H2 database integration.',
       'proj-library-title': 'Digital Library',
       'proj-library-desc': 'Book, author and review management system using modern architecture.',
       'proj-support-title': 'Support System',
       'proj-support-desc': 'RESTful API developed for efficient monitoring of incidents and IT operations.',
       'proj-pdv-desc': 'Fully online point of sale that works in offline contingency using IndexedDB.',
+      'proj-finance-title': 'Financial System',
+      'proj-finance-desc': 'Financial management platform, featuring cash flow tracking in a simplified interface.',
       'proj-password-title': 'Password Generator',
       'proj-password-desc': 'Secure application for credential generation with automated tests.',
       'proj-agenda-title': 'Meeting Scheduler',
