@@ -3,791 +3,733 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Nicolas Pereira Lucas Gonçalves - Desenvolvedor Fullstack. Java, PHP, Spring Boot, Adianti, React e Node.js.">
-  <title>Nicolas P. L. Gonçalves | Fullstack Dev</title>
+  <title>Nícolas P. L. Gonçalves | Desenvolvedor Fullstack</title>
+  <meta name="description" content="Nícolas Pereira Lucas Gonçalves — Desenvolvedor Fullstack em Sarandi-PR. ERP em PHP/Adianti, apps em Next.js e Node, sistemas financeiros e integrações com IA (MCP).">
+  <meta name="theme-color" content="#07090f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nícolas P. L. Gonçalves | Desenvolvedor Fullstack">
+  <meta property="og:description" content="Sistemas que resolvem a operação: ERP, financeiro, automação e integrações com IA.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307090f'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='28' fill='%2334d399'%3EN%3C/text%3E%3C/svg%3E">
 
-  <!-- Fontes Premium -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
-  <!-- Ícones -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
   <style>
     :root {
-      /* Paleta "Deep Space" */
-      --bg: #030014;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
-
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-
-      /* Acentos Neon */
-      --primary: #8b5cf6; /* Roxo */
-      --cyan: #06b6d4;    /* Ciano */
-      --pink: #ec4899;    /* Rosa */
-      
-      --glow-size: 600px;
+      --bg: #07090f;
+      --bg-2: #0b0f19;
+      --surface: #0f1420;
+      --surface-2: #141b2a;
+      --line: #1e2636;
+      --line-2: #2a3448;
+      --text: #e6eaf2;
+      --muted: #8b95a9;
+      --dim: #5d6779;
+      --accent: #34d399;   /* emerald */
+      --accent-2: #60a5fa; /* blue */
+      --accent-ink: #052e1f;
+      --radius: 14px;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --display: 'Space Grotesk', system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html { 
-      scroll-behavior: smooth; 
-      scroll-padding-top: 100px; /* Para o header não tapar o título */
-    }
-
-    /* Scrollbar Personalizada */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
-
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
+      background: var(--bg); color: var(--text);
+      font: 16px/1.65 'Inter', system-ui, sans-serif;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    ::selection { background: var(--accent); color: var(--accent-ink); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+    /* fundo: grade sutil + brilho */
+    .bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    .bg-fx::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 56px 56px; opacity: .35;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+    }
+    .bg-fx::after {
+      content: ""; position: absolute; top: -30vh; left: 50%; width: 90vw; height: 70vh; transform: translateX(-50%);
+      background: radial-gradient(closest-side, rgba(52,211,153,.13), rgba(96,165,250,.06) 55%, transparent);
+      filter: blur(20px);
     }
 
-    /* --- BACKGROUND FX --- */
-    .grain-overlay {
-      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-      opacity: 0.35;
-    }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 480px) { .container { padding: 0 16px; } }
 
-    .aurora-blob, .aurora-blob-2 {
-      position: fixed; border-radius: 50%; filter: blur(90px); z-index: -1;
-      animation: float 12s ease-in-out infinite;
+    /* ---------- NAV ---------- */
+    header.top {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7,9,15,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent; transition: border-color .3s;
     }
-    .aurora-blob {
-      top: -20%; left: 15%; width: 60vw; height: 60vw;
-      background: radial-gradient(circle, rgba(139,92,246,.22), transparent 70%);
+    header.top.scrolled { border-bottom-color: var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .brand { font-family: var(--mono); font-weight: 500; font-size: 14px; text-decoration: none; color: var(--text); white-space: nowrap; }
+    .brand b { color: var(--accent); font-weight: 500; }
+    .nav-links { display: flex; gap: 2px; align-items: center; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: 14px; padding: 8px 12px; border-radius: 8px; transition: .2s;
     }
-    .aurora-blob-2 {
-      bottom: -25%; right: -10%; width: 50vw; height: 50vw;
-      background: radial-gradient(circle, rgba(6,182,212,.18), transparent 70%);
-      animation-duration: 16s;
-    }
-    @keyframes float { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,40px); } }
-
-    .container { max-width: 1100px; margin: auto; padding: 0 24px; position: relative; z-index: 1; }
-
-    /* --- NAVEGAÇÃO --- */
-    nav {
-      position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 4px; padding: 6px 8px; border-radius: 999px;
-      background: rgba(3,0,20,.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); z-index: 100;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-      align-items: center;
-    }
-    nav a {
-      padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500;
-      text-decoration: none; color: var(--text-muted); transition: .3s;
-    }
-    nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
-    
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
     .lang-toggle {
-      margin-left: 8px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      color: #fff; border: none; cursor: pointer; transition: .3s; font-family: 'Space Grotesk';
+      margin-left: 8px; font: 500 12px var(--mono); color: var(--text); cursor: pointer;
+      background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px; padding: 7px 10px; transition: .2s;
     }
-    .lang-toggle:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
+    .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    @media (max-width: 720px) { .nav-links a.opt { display: none; } }
+    @media (max-width: 420px) { .nav-links a { padding: 8px 8px; font-size: 13px; } }
 
-    /* --- HERO --- */
-    .hero {
-      min-height: 95vh; padding-top: 80px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center;
+    /* ---------- HERO ---------- */
+    .hero { padding: 96px 0 72px; }
+    .status {
+      display: inline-flex; align-items: center; gap: 10px; font: 500 13px var(--mono); color: var(--muted);
+      padding: 6px 12px 6px 10px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--bg-2);
     }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse 2s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); } 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+    .hero h1 {
+      font-family: var(--display); font-weight: 700; letter-spacing: -0.035em; line-height: 1.02;
+      font-size: clamp(40px, 7.2vw, 84px); margin: 28px 0 24px; max-width: 14ch;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(100deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 640px; }
+    .lead strong { color: var(--text); font-weight: 500; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer;
+      font: 600 15px 'Inter', sans-serif; padding: 12px 20px; border-radius: 10px; transition: .2s; border: 1px solid transparent;
+    }
+    .btn svg { width: 17px; height: 17px; }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-primary:hover { background: #6ee7b7; transform: translateY(-2px); }
+    .btn-ghost { border-color: var(--line-2); color: var(--text); background: var(--bg-2); }
+    .btn-ghost:hover { border-color: var(--muted); transform: translateY(-2px); }
 
-    h1 {
-      font-family: 'Space Grotesk'; font-size: clamp(40px, 6vw, 72px); font-weight: 700;
-      letter-spacing: -2px; margin-bottom: 24px; line-height: 1.1;
-      background: linear-gradient(135deg, #fff 30%, var(--text-muted));
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-      text-transform: uppercase;
+    .facts {
+      display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 72px;
+      border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); overflow: hidden;
     }
-
-    .hero h2 {
-      font-family: 'Space Grotesk'; font-weight: 300; font-size: clamp(18px,4vw,24px);
-      color: var(--text-muted); max-width: 800px; margin-bottom: 40px;
+    .fact { padding: 22px 24px; border-right: 1px solid var(--line); }
+    .fact:last-child { border-right: 0; }
+    .fact .k { font: 500 12px var(--mono); color: var(--dim); text-transform: uppercase; letter-spacing: .08em; }
+    .fact .v { font-family: var(--display); font-size: 20px; font-weight: 500; margin-top: 6px; line-height: 1.3; }
+    @media (max-width: 860px) {
+      .facts { grid-template-columns: 1fr 1fr; }
+      .fact:nth-child(2) { border-right: 0; }
+      .fact:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
     }
-    .highlight {
-      background: linear-gradient(90deg, var(--cyan), var(--primary), var(--pink));
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;
-    }
-
-    /* --- TERMINAL --- */
-    .terminal-box {
-      width: 100%; max-width: 680px; background: #0a0a0a;
-      border: 1px solid var(--glass-border); border-radius: 12px;
-      overflow: hidden; box-shadow: 0 20px 50px -10px rgba(0,0,0,.6);
-      margin: 0 auto 40px; text-align: left;
-    }
-    .terminal-bar {
-      background: #171717; padding: 10px 16px; display: flex; gap: 8px;
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .terminal-content {
-      padding: 24px; font-family: 'JetBrains Mono'; font-size: 13px;
-      color: var(--text-muted); min-height: 160px; line-height: 1.6;
-    }
-    .cursor { display: inline-block; width: 8px; height: 16px; background: var(--primary); animation: blink 1s infinite; vertical-align: sub; }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* --- BOTÕES --- */
-    .btn-group { 
-      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: center; 
-    }
-    
-    /* Botão Principal */
-    .btn-magic {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      background: linear-gradient(90deg, var(--primary), var(--cyan));
-      padding: 14px 36px; border-radius: 8px;
-      color: #ffffff; font-weight: 700; text-decoration: none;
-      transition: all 0.3s ease; border: none; font-size: 15px;
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-    }
-    .btn-magic:hover { 
-      transform: translateY(-3px); 
-      box-shadow: 0 0 40px rgba(6, 182, 212, 0.5); 
+    @media (max-width: 480px) {
+      .hero { padding: 64px 0 48px; }
+      .facts { grid-template-columns: 1fr; }
+      .fact { border-right: 0; border-bottom: 1px solid var(--line); }
+      .fact:last-child { border-bottom: 0; }
     }
 
-    /* Botões Secundários */
-    .btn-ghost {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 12px 24px; border-radius: 8px;
-      border: 1px solid var(--glass-border); color: var(--text-muted);
-      text-decoration: none; transition: .25s; font-weight: 500;
-      background: rgba(255,255,255,0.01);
-    }
-    .btn-ghost:hover { 
-      color: #fff; border-color: #fff; background: rgba(255,255,255,.05); transform: translateY(-3px);
-    }
+    /* ---------- SEÇÕES ---------- */
+    section.block { padding: 72px 0; }
+    .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+    .sec-num { font: 500 13px var(--mono); color: var(--accent); }
+    .sec-title { font-family: var(--display); font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -0.025em; }
+    .sec-sub { color: var(--muted); max-width: 620px; margin: -20px 0 36px; }
 
-    /* --- MARQUEE TECH --- */
-    .marquee-wrap {
-      width: 100%; overflow: hidden; padding: 60px 0;
-      mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    /* ---------- DESTAQUES ---------- */
+    .featured { display: grid; gap: 20px; }
+    .case {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; position: relative;
+      border: 1px solid var(--line); border-radius: 18px; background: var(--bg-2); overflow: hidden; transition: border-color .3s;
     }
-    .marquee { display: flex; gap: 50px; animation: scroll 35s linear infinite; width: max-content; }
-    .tech-icon {
-      font-family: 'Space Grotesk'; font-weight: 700; font-size: 16px; color: var(--text-muted);
-      display: flex; align-items: center; gap: 10px; letter-spacing: 1px;
+    .case:hover { border-color: var(--line-2); }
+    .case-main { padding: 32px; display: flex; flex-direction: column; gap: 14px; }
+    .case-side { padding: 32px; border-left: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; gap: 14px; }
+    .case-kicker { font: 500 12px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .08em; display: flex; align-items: center; gap: 8px; }
+    .case-kicker svg { width: 15px; height: 15px; }
+    .case h3 { font-family: var(--display); font-size: 28px; letter-spacing: -0.02em; line-height: 1.15; }
+    .case p { color: var(--muted); }
+    .case-side h4 { font: 500 12px var(--mono); color: var(--dim); text-transform: uppercase; letter-spacing: .08em; }
+    .bullets { list-style: none; display: grid; gap: 10px; }
+    .bullets li { position: relative; padding-left: 20px; color: var(--text); font-size: 15px; line-height: 1.55; }
+    .bullets li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); opacity: .8; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font: 500 12px var(--mono); color: var(--muted); padding: 4px 9px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--bg); }
+    .links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: auto; padding-top: 8px; }
+    .link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-2); padding-bottom: 2px; transition: .2s; }
+    .link svg { width: 15px; height: 15px; }
+    .link:hover { color: var(--accent); border-color: var(--accent); }
+    .note { font-size: 13px; color: var(--dim); font-style: italic; }
+    @media (max-width: 860px) {
+      .case { grid-template-columns: 1fr; }
+      .case-side { border-left: 0; border-top: 1px solid var(--line); }
     }
-    .tech-icon i { color: #fff; }
-    @keyframes scroll { to { transform: translateX(-50%); } }
+    @media (max-width: 480px) { .case-main, .case-side { padding: 22px; } .case h3 { font-size: 24px; } }
 
-    /* --- TÍTULOS E LINHAS --- */
-    .section-header {
-      font-family: 'Space Grotesk'; font-size: 32px; color: #fff;
-      margin: 80px 0 40px; display: flex; align-items: center; gap: 20px;
+    /* ---------- OUTROS PROJETOS ---------- */
+    .more-title { font-family: var(--display); font-size: 20px; margin: 56px 0 20px; color: var(--text); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+    .mini {
+      position: relative; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--bg-2); display: flex; flex-direction: column; gap: 10px; transition: .25s;
     }
-    .section-line { height: 1px; flex: 1; background: linear-gradient(90deg, var(--glass-border), transparent); }
+    .mini:hover { border-color: var(--line-2); transform: translateY(-3px); background: var(--surface); }
+    .mini-top { display: flex; justify-content: space-between; align-items: center; color: var(--accent); }
+    .mini-top svg { width: 22px; height: 22px; }
+    .mini-top .arrow { color: var(--dim); width: 18px; height: 18px; transition: .2s; }
+    .mini:hover .arrow { color: var(--accent); transform: translate(2px,-2px); }
+    .mini h5 { font-family: var(--display); font-size: 18px; font-weight: 500; }
+    .mini p { color: var(--muted); font-size: 14px; flex: 1; }
+    .mini a.stretch { position: absolute; inset: 0; border-radius: inherit; }
 
-    /* --- GRID PROJETOS (Spotlight) --- */
-    .grid-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    /* ---------- COMO TRABALHO ---------- */
+    .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .principle { padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); display: grid; grid-template-columns: auto 1fr; gap: 16px; }
+    .p-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(52,211,153,.1); color: var(--accent); }
+    .p-icon svg { width: 20px; height: 20px; }
+    .principle h5 { font-family: var(--display); font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+    .principle p { color: var(--muted); font-size: 15px; }
+    @media (max-width: 760px) { .principles { grid-template-columns: 1fr; } }
 
-    .card {
-      background: var(--card-bg); border-radius: 16px; position: relative;
-      border: 1px solid var(--glass-border); overflow: hidden;
-      display: flex; flex-direction: column; transition: transform 0.3s;
-      backdrop-filter: blur(5px);
-    }
-    .card::before { /* Luz do mouse */
-      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-      background: radial-gradient(var(--glow-size) circle at var(--x) var(--y), rgba(255,255,255,0.06), transparent 40%);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .card:hover::before { opacity: 1; }
-    .card::after { /* Borda brilhante */
-      content: ""; position: absolute; inset: 0; border-radius: 16px; z-index: 1; pointer-events: none; padding: 1px; 
-      background: radial-gradient(var(--glow-size) circle at var(--x) var(--y), var(--primary), transparent 40%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .card:hover::after { opacity: 1; }
+    /* ---------- STACK ---------- */
+    .stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px; }
+    .stack-col { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+    .stack-col h5 { font: 500 12px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; }
+    .stack-col ul { list-style: none; display: grid; gap: 8px; }
+    .stack-col li { font-size: 15px; display: flex; justify-content: space-between; gap: 8px; }
+    .stack-col li span { color: var(--dim); font: 12px var(--mono); white-space: nowrap; }
 
-    .card-body { padding: 30px; position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; }
-    .proj-icon { margin-bottom: 20px; color: var(--cyan); }
-    .proj-title { font-family: 'Space Grotesk'; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .proj-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
-    .tag-container { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
-    .tag { font-size: 11px; padding: 4px 10px; border: 1px solid var(--glass-border); border-radius: 6px; color: var(--text-muted); }
+    /* ---------- CARREIRA ---------- */
+    .career { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; }
+    .timeline { position: relative; }
+    .job { position: relative; padding: 0 0 36px 28px; border-left: 1px solid var(--line-2); }
+    .job:last-child { padding-bottom: 0; }
+    .job::before { content: ""; position: absolute; left: -5px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--dim); }
+    .job.current::before { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(52,211,153,.15); }
+    .job-when { font: 500 12px var(--mono); color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
+    .job h4 { font-family: var(--display); font-size: 20px; font-weight: 500; margin-top: 4px; }
+    .job .org { color: var(--accent-2); font-size: 14px; font-weight: 500; }
+    .job p { color: var(--muted); margin-top: 8px; font-size: 15px; }
+    .job .bullets { margin-top: 10px; }
+    .job .bullets li { color: var(--muted); font-size: 15px; }
+    .side { display: grid; gap: 16px; align-content: start; }
+    .side-card { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+    .side-card h5 { display: flex; align-items: center; gap: 8px; font: 500 12px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .side-card h5 svg { width: 15px; height: 15px; }
+    .side-item + .side-item { margin-top: 12px; }
+    .side-item strong { display: block; font-weight: 500; }
+    .side-item span { color: var(--muted); font-size: 14px; }
+    @media (max-width: 860px) { .career { grid-template-columns: 1fr; } }
 
-    /* --- EXPERIÊNCIA E SIDEBAR --- */
-    .main-content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
-
-    .xp-card {
-      border-left: 2px solid var(--glass-border); padding: 0 0 20px 30px; position: relative; transition: 0.3s;
+    /* ---------- CONTATO ---------- */
+    .contact {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+      background: linear-gradient(160deg, rgba(52,211,153,.07), transparent 45%), var(--bg-2);
     }
-    .xp-card:last-child { padding-bottom: 0; }
-    .xp-card::before {
-      content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px;
-      background: var(--bg); border: 2px solid var(--primary); border-radius: 50%;
-      box-shadow: 0 0 15px var(--primary);
-    }
-    .xp-card:hover { border-left-color: var(--primary); }
-    .xp-role { font-family: 'Space Grotesk'; font-size: 18px; font-weight: 700; color: #fff; transition: color 0.3s; }
-    .xp-card:hover .xp-role { color: var(--primary); }
-    .xp-company { font-size: 13px; color: var(--cyan); margin-bottom: 8px; display: block; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
-
-    .sidebar-card {
-      background: var(--card-bg); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 24px; margin-bottom: 24px; backdrop-filter: blur(5px);
-      transition: transform 0.3s, border-color 0.3s;
-    }
-    .sidebar-card:hover { transform: translateY(-3px); border-color: rgba(139, 92, 246, 0.3); }
-    .sidebar-title { font-family: 'Space Grotesk'; color: #fff; font-size: 18px; margin-bottom: 16px; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; }
-    .sidebar-item { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
-    .sidebar-item strong { color: #fff; display: block; margin-bottom: 2px; }
-
-    /* --- CONTATO --- */
-    .contact-section { margin: 80px 0 60px; text-align: center; }
-    .contact-box {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(139, 92, 246, 0.05) 100%);
-      border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px;
-      max-width: 600px; margin: 0 auto; backdrop-filter: blur(10px);
-    }
+    .contact-info { padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+    .contact-info h3 { font-family: var(--display); font-size: clamp(28px, 4vw, 38px); letter-spacing: -0.02em; line-height: 1.1; }
+    .contact-info p { color: var(--muted); }
+    .channels { display: grid; gap: 10px; margin-top: 8px; }
+    .channel { display: flex; align-items: center; gap: 12px; text-decoration: none; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); transition: .2s; }
+    .channel:hover { border-color: var(--accent); }
+    .channel svg { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
+    .channel span { font-size: 15px; }
+    .channel small { margin-left: auto; color: var(--dim); font: 12px var(--mono); }
+    form.contact-form { padding: 40px; border-left: 1px solid var(--line); display: grid; gap: 14px; align-content: center; background: rgba(7,9,15,.4); }
+    label.f { display: grid; gap: 6px; font: 500 12px var(--mono); color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
     input, textarea {
-      width: 100%; background: #0a0a0a; border: 1px solid var(--glass-border);
-      padding: 16px; border-radius: 8px; color: #fff; margin-bottom: 16px; 
-      font-family: 'JetBrains Mono', monospace; font-size: 14px; transition: 0.3s;
+      width: 100%; background: var(--bg); border: 1px solid var(--line-2); border-radius: 10px; padding: 13px 14px;
+      color: var(--text); font: 15px 'Inter', sans-serif; transition: .2s; text-transform: none; letter-spacing: 0;
     }
-    input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+    textarea { resize: vertical; min-height: 120px; }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(52,211,153,.15); }
+    .form-status { font-size: 14px; min-height: 20px; color: var(--accent); }
+    .form-status.err { color: #f87171; }
+    @media (max-width: 860px) {
+      .contact { grid-template-columns: 1fr; }
+      form.contact-form { border-left: 0; border-top: 1px solid var(--line); }
+    }
+    @media (max-width: 480px) { .contact-info, form.contact-form { padding: 24px; } }
 
-    footer { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--glass-border); }
+    footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 28px 0; color: var(--dim); font-size: 13px; }
+    footer .container { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
 
-    @media(max-width: 850px) {
-      h1 { font-size: 36px; }
-      nav { width: 95%; justify-content: center; top: 16px; }
-      .main-content-grid { grid-template-columns: 1fr; }
+    /* revelar ao rolar */
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .pulse { animation: none; }
+      .btn:hover, .mini:hover { transform: none; }
     }
   </style>
 </head>
 
 <body>
-<div class="grain-overlay"></div>
-<div class="aurora-blob"></div>
-<div class="aurora-blob-2"></div>
+<div class="bg-fx" aria-hidden="true"></div>
 
-<nav>
-  <a href="#about" data-i18n="nav-about">Sobre</a>
-  <a href="#projects" data-i18n="nav-projects">Projetos</a>
-  <a href="#experience" data-i18n="nav-career">Carreira</a>
-  <a href="#contact" data-i18n="nav-contact">Contato</a>
-  <button class="lang-toggle" id="langToggle">EN</button>
-</nav>
+<header class="top" id="top">
+  <div class="container nav">
+    <a href="#inicio" class="brand">nicolas<b>.dev</b></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#projetos" data-i18n="nav-projects">Projetos</a>
+      <a href="#como-trabalho" class="opt" data-i18n="nav-how">Como trabalho</a>
+      <a href="#carreira" data-i18n="nav-career">Carreira</a>
+      <a href="#contato" data-i18n="nav-contact">Contato</a>
+      <button class="lang-toggle" id="langToggle" aria-label="Mudar idioma / Switch language">EN</button>
+    </nav>
+  </div>
+</header>
 
-<main class="container">
+<main id="inicio">
 
   <!-- HERO -->
-  <section class="hero" id="about">
-    <h1>Nicolas P. L. Gonçalves</h1>
-    <h2 data-i18n="hero-subtitle">
-      Desenvolvedor Fullstack apaixonado por automação e performance.<br>
-      Especialista em <span class="highlight">Java, Spring Boot e React</span>.
-    </h2>
-
-    <!-- TERMINAL -->
-    <div class="terminal-box">
-      <div class="terminal-bar">
-        <div class="dot" style="background:#ef4444"></div>
-        <div class="dot" style="background:#eab308"></div>
-        <div class="dot" style="background:#22c55e"></div>
+  <section class="hero">
+    <div class="container">
+      <span class="status reveal"><span class="pulse"></span><span data-i18n="hero-status">Dev Fullstack na Vector Soluções Digitais · Sarandi-PR</span></span>
+      <h1 class="reveal" data-i18n="hero-title">Sistemas que fazem a <span class="grad">operação rodar.</span></h1>
+      <p class="lead reveal" data-i18n="hero-lead">
+        Sou o <strong>Nícolas</strong>, desenvolvedor fullstack. Trabalho em <strong>ERP em produção</strong> com PHP e Adianti, construo apps em <strong>Next.js e Node</strong> e gosto de transformar processo bagunçado em sistema simples: financeiro, Kanban, relatórios e <strong>integrações com IA</strong>.
+      </p>
+      <div class="cta reveal">
+        <a href="#projetos" class="btn btn-primary"><span data-i18n="cta-projects">Ver projetos</span> <i data-lucide="arrow-down"></i></a>
+        <a href="https://github.com/Nicolasplgn" target="_blank" rel="noopener" class="btn btn-ghost"><i data-lucide="github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/n%C3%ADcolas-pereira-lucas-gon%C3%A7alves-4466b5326/" target="_blank" rel="noopener" class="btn btn-ghost"><i data-lucide="linkedin"></i> LinkedIn</a>
       </div>
-      <div class="terminal-content" id="typewriter"></div>
-    </div>
 
-    <!-- BOTÕES -->
-    <div class="btn-group">
-      <a href="#projects" class="btn-magic" data-i18n="explore-projects">
-        Explorar Projetos
-      </a>
-      <a href="https://github.com/Nicolasplgn" target="_blank" class="btn-ghost">
-        <i data-lucide="github" style="width: 16px;"></i> GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/n%C3%ADcolas-pereira-lucas-gon%C3%A7alves-4466b5326/" target="_blank" class="btn-ghost">
-        <i data-lucide="linkedin" style="width: 16px;"></i> LinkedIn
-      </a>
+      <div class="facts reveal">
+        <div class="fact"><div class="k" data-i18n="f1-k">Hoje</div><div class="v" data-i18n="f1-v">ERP SaaS multi-tenant em produção</div></div>
+        <div class="fact"><div class="k" data-i18n="f2-k">Stack principal</div><div class="v">PHP · TypeScript · Node · SQL</div></div>
+        <div class="fact"><div class="k" data-i18n="f3-k">Diferencial</div><div class="v" data-i18n="f3-v">IA integrada ao fluxo (MCP)</div></div>
+        <div class="fact"><div class="k" data-i18n="f4-k">Formação</div><div class="v" data-i18n="f4-v">Eng. de Software · Unicesumar</div></div>
+      </div>
     </div>
   </section>
 
-  <!-- TECH SCROLL -->
-  <div class="marquee-wrap">
-    <div class="marquee">
-      <div class="tech-icon"><i data-lucide="coffee"></i> JAVA</div>
-      <div class="tech-icon"><i data-lucide="braces"></i> PHP</div>
-      <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
-      <div class="tech-icon"><i data-lucide="layout-dashboard"></i> ADIANTI</div>
-      <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
-      <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
-      <div class="tech-icon"><i data-lucide="server"></i> NODE.JS</div>
-      <div class="tech-icon"><i data-lucide="database"></i> ORACLE SQL</div>
-      <div class="tech-icon"><i data-lucide="container"></i> DOCKER</div>
-      <div class="tech-icon"><i data-lucide="code-2"></i> C</div>
-      <div class="tech-icon"><i data-lucide="layers"></i> NESTJS</div>
-      <!-- Repetição para infinito -->
-      <div class="tech-icon"><i data-lucide="coffee"></i> JAVA</div>
-      <div class="tech-icon"><i data-lucide="braces"></i> PHP</div>
-      <div class="tech-icon"><i data-lucide="zap"></i> SPRING BOOT</div>
-      <div class="tech-icon"><i data-lucide="layout-dashboard"></i> ADIANTI</div>
-      <div class="tech-icon"><i data-lucide="atom"></i> REACT</div>
-      <div class="tech-icon"><i data-lucide="file-code"></i> TYPESCRIPT</div>
+  <!-- PROJETOS EM DESTAQUE -->
+  <section class="block" id="projetos">
+    <div class="container">
+      <div class="sec-head reveal"><span class="sec-num">01</span><h2 class="sec-title" data-i18n="projects-title">Projetos em destaque</h2></div>
+      <p class="sec-sub reveal" data-i18n="projects-sub">Sistemas que uso, mantenho ou entreguei para clientes, com o problema que resolvem e o que eu fiz em cada um.</p>
+
+      <div class="featured">
+
+        <!-- PENDS -->
+        <article class="case reveal">
+          <div class="case-main">
+            <span class="case-kicker"><i data-lucide="layout-grid"></i> <span data-i18n="pends-kicker">Produto próprio · em uso diário</span></span>
+            <h3>Pends</h3>
+            <p data-i18n="pends-desc">Meu "sistema operacional pessoal": tarefas em Kanban organizadas por módulos de vida (trabalho, faculdade, casa) e um hub financeiro completo. Tem servidor MCP próprio, então um assistente de IA consegue criar tarefas, registrar gastos e montar o resumo do dia direto no app.</p>
+            <div class="tags"><span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">MCP + OAuth</span><span class="tag">Vercel Cron</span></div>
+            <div class="links">
+              <a class="link" href="https://pends.vercel.app" target="_blank" rel="noopener"><i data-lucide="external-link"></i> <span data-i18n="link-live">Ver no ar</span></a>
+              <a class="link" href="https://github.com/Nicolasplgn/pends" target="_blank" rel="noopener"><i data-lucide="github"></i> <span data-i18n="link-code">Código</span></a>
+            </div>
+          </div>
+          <div class="case-side">
+            <h4 data-i18n="what-i-did">O que eu construí</h4>
+            <ul class="bullets">
+              <li data-i18n="pends-b1">Kanban com arrastar e soltar, visão em tabela, rotinas recorrentes e alertas de prazo</li>
+              <li data-i18n="pends-b2">Financeiro com Pix, boleto e cartão: parcelamento, fechamento de fatura, contas fixas e teto de gasto por módulo</li>
+              <li data-i18n="pends-b3">Servidor MCP com fluxo OAuth para conectar assistentes de IA às pendências e ao caixa</li>
+              <li data-i18n="pends-b4">Dashboard analítico com relatório executivo e exportação CSV; lembretes diários via cron</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- WAVE -->
+        <article class="case reveal">
+          <div class="case-main">
+            <span class="case-kicker"><i data-lucide="building-2"></i> <span data-i18n="wave-kicker">Trabalho · Vector Soluções Digitais</span></span>
+            <h3>Wave Core ERP</h3>
+            <p data-i18n="wave-desc">ERP SaaS multi-tenant (um banco por cliente) usado por empresas de varejo, serviços e clínicas veterinárias. Desenvolvo e mantenho módulos em produção num código grande e legado, onde cada alteração precisa respeitar o padrão existente e não quebrar quem depende dela.</p>
+            <div class="tags"><span class="tag">PHP 8</span><span class="tag">Adianti Framework</span><span class="tag">MySQL / MariaDB</span><span class="tag">Relatórios PDF/CSV</span><span class="tag">Webhooks</span></div>
+            <p class="note" data-i18n="wave-note">Código proprietário: sem link público.</p>
+          </div>
+          <div class="case-side">
+            <h4 data-i18n="what-i-did">O que eu construí</h4>
+            <ul class="bullets">
+              <li data-i18n="wave-b1">Telas e regras de negócio do módulo veterinário: agenda, atendimento, prescrição e exames</li>
+              <li data-i18n="wave-b2">Padronização de listagens, filtros e relatórios entre módulos, com controle de acesso por unidade</li>
+              <li data-i18n="wave-b3">Rotina de revisão antes de cada entrega (lint, encoding, impacto em telas dependentes)</li>
+              <li data-i18n="wave-b4">Migração e compatibilidade entre versões do framework (Adianti 7.5 → 8.6)</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- FINANCEIRO -->
+        <article class="case reveal">
+          <div class="case-main">
+            <span class="case-kicker"><i data-lucide="line-chart"></i> <span data-i18n="fin-kicker">Sistema para escritório contábil</span></span>
+            <h3 data-i18n="fin-title">Financeiro Multiempresa</h3>
+            <p data-i18n="fin-desc">Plataforma para lançar o resultado mensal de várias empresas e grupos, com consolidação automática e relatórios prontos para reunião com o cliente. Substituiu planilhas soltas por um sistema com perfis de acesso.</p>
+            <div class="tags"><span class="tag">React 19</span><span class="tag">Express 5</span><span class="tag">MySQL</span><span class="tag">JWT + bcrypt</span><span class="tag">Chart.js</span><span class="tag">jsPDF / ExcelJS</span></div>
+            <div class="links">
+              <a class="link" href="https://github.com/Nicolasplgn/sistema-financeiro-hdl" target="_blank" rel="noopener"><i data-lucide="github"></i> <span data-i18n="link-code">Código</span></a>
+            </div>
+          </div>
+          <div class="case-side">
+            <h4 data-i18n="what-i-did">O que eu construí</h4>
+            <ul class="bullets">
+              <li data-i18n="fin-b1">API REST com perfis Admin, Gestor e Cliente controlando o que cada um vê e edita</li>
+              <li data-i18n="fin-b2">Cálculo de faturamento, impostos, despesas e lucro por período, consolidado por empresa ou grupo</li>
+              <li data-i18n="fin-b3">Importação de planilhas Excel com modo de conferência antes de gravar</li>
+              <li data-i18n="fin-b4">Relatórios em PDF e Excel com gráficos, além de testes automatizados no back-end</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- CARTÃO NFC -->
+        <article class="case reveal">
+          <div class="case-main">
+            <span class="case-kicker"><i data-lucide="nfc"></i> <span data-i18n="nfc-kicker">Cliente · reconstrução de legado</span></span>
+            <h3 data-i18n="nfc-title">Cartão de visita digital (NFC/QR)</h3>
+            <p data-i18n="nfc-desc">O cliente tinha só o site compilado, sem código-fonte, e uma API com falhas sérias. Recuperei o código original a partir dos source maps, mapeei a API antiga e refiz a plataforma do zero, mantendo os links dos cartões já impressos funcionando.</p>
+            <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Node.js</span><span class="tag">Docker</span><span class="tag">nginx</span><span class="tag">Segurança</span></div>
+            <p class="note" data-i18n="nfc-note">Projeto de cliente: sem link público.</p>
+          </div>
+          <div class="case-side">
+            <h4 data-i18n="what-i-did">O que eu construí</h4>
+            <ul class="bullets">
+              <li data-i18n="nfc-b1">Auditoria do sistema antigo: chave de API exposta no front, pasta de imagens aberta e senhas com criptografia reversível</li>
+              <li data-i18n="nfc-b2">Nova API, painel administrativo e cartão público mobile com atalhos de WhatsApp, Pix e vCard</li>
+              <li data-i18n="nfc-b3">Importador que migra o banco SQLite antigo e converte as senhas para hash seguro</li>
+              <li data-i18n="nfc-b4">Duas versões de deploy: hospedagem PHP comum ou Node em container Docker</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <h4 class="more-title reveal" data-i18n="more-title">Outros projetos</h4>
+      <div class="grid">
+        <div class="mini reveal">
+          <div class="mini-top"><i data-lucide="shopping-cart"></i><i data-lucide="arrow-up-right" class="arrow"></i></div>
+          <h5>PDV Wave</h5>
+          <p data-i18n="m-pdv">Frente de caixa online que continua vendendo sem internet, guardando tudo em IndexedDB e sincronizando depois.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">IndexedDB</span><span class="tag">Offline-first</span></div>
+          <a class="stretch" href="https://github.com/sirlovani/wave_pdv" target="_blank" rel="noopener" aria-label="PDV Wave"></a>
+        </div>
+        <div class="mini reveal">
+          <div class="mini-top"><i data-lucide="trophy"></i><i data-lucide="arrow-up-right" class="arrow"></i></div>
+          <h5>Beach Tennis ERP</h5>
+          <p data-i18n="m-beach">Gestão de arenas de beach tennis: agendamento de quadras, clientes e controle do dia a dia.</p>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag" data-i18n="tag-live">No ar</span></div>
+          <a class="stretch" href="https://beach-tennis-erp.vercel.app" target="_blank" rel="noopener" aria-label="Beach Tennis ERP"></a>
+        </div>
+        <div class="mini reveal">
+          <div class="mini-top"><i data-lucide="file-bar-chart"></i><i data-lucide="arrow-up-right" class="arrow"></i></div>
+          <h5 data-i18n="m-rel-title">Relatório HDL</h5>
+          <p data-i18n="m-rel">Painel web de relatórios para o escritório contábil, complementar ao sistema financeiro.</p>
+          <div class="tags"><span class="tag">JavaScript</span><span class="tag" data-i18n="tag-live">No ar</span></div>
+          <a class="stretch" href="https://relatorio-hdl.vercel.app" target="_blank" rel="noopener" aria-label="Relatório HDL"></a>
+        </div>
+        <div class="mini reveal">
+          <div class="mini-top"><i data-lucide="dumbbell"></i><i data-lucide="arrow-up-right" class="arrow"></i></div>
+          <h5 data-i18n="m-lp-title">Landing page · Personal trainer</h5>
+          <p data-i18n="m-lp">Página de captação para um profissional autônomo, pensada para converter no celular.</p>
+          <div class="tags"><span class="tag">Front-end</span><span class="tag">Vercel</span><span class="tag" data-i18n="tag-live">No ar</span></div>
+          <a class="stretch" href="https://landing-page-personal-chi.vercel.app" target="_blank" rel="noopener" aria-label="Landing page"></a>
+        </div>
+        <div class="mini reveal">
+          <div class="mini-top"><i data-lucide="kanban"></i><i data-lucide="arrow-up-right" class="arrow"></i></div>
+          <h5>Kanban API</h5>
+          <p data-i18n="m-kanban">API REST com autenticação JWT, CRUD completo e relatórios automáticos.</p>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">JWT</span></div>
+          <a class="stretch" href="https://github.com/Nicolasplgn" target="_blank" rel="noopener" aria-label="Kanban API"></a>
+        </div>
+        <div class="mini reveal">
+          <div class="mini-top"><i data-lucide="calendar-days"></i><i data-lucide="arrow-up-right" class="arrow"></i></div>
+          <h5 data-i18n="m-agenda-title">Agenda de Reuniões</h5>
+          <p data-i18n="m-agenda">Reserva de salas de reunião com controle de horários e atas.</p>
+          <div class="tags"><span class="tag">Java</span><span class="tag">Spring</span></div>
+          <a class="stretch" href="https://github.com/Nicolasplgn/Sistema-de-Agenda-de-Reuni-es" target="_blank" rel="noopener" aria-label="Agenda"></a>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- PROJETOS -->
-  <h2 class="section-header" id="projects"><span data-i18n="projects-title">Projetos Relevantes</span> <div class="section-line"></div></h2>
-  
-  <div class="grid-projects" id="cards-container">
-    
-    <!-- Beach Tennis ERP -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="trophy" width="32" height="32"></i></div>
-        <div class="proj-title" data-i18n="proj-beach-title">Beach Tennis ERP</div>
-        <p class="proj-desc" data-i18n="proj-beach-desc">Sistema de gestão para arenas de Beach Tennis, facilitando o controle de agendamentos, quadras e clientes.</p>
-        <div class="tag-container">
-          <span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">ERP</span>
+  <!-- COMO TRABALHO -->
+  <section class="block" id="como-trabalho">
+    <div class="container">
+      <div class="sec-head reveal"><span class="sec-num">02</span><h2 class="sec-title" data-i18n="how-title">Como eu trabalho</h2></div>
+      <div class="principles">
+        <div class="principle reveal">
+          <div class="p-icon"><i data-lucide="scan-search"></i></div>
+          <div><h5 data-i18n="p1-t">Leio antes de mexer</h5><p data-i18n="p1-d">Em sistema legado, entendo o arquivo inteiro e os vizinhos antes de alterar. Sigo o padrão que já existe em vez de impor o meu.</p></div>
         </div>
-        <a href="https://github.com/Nicolasplgn/beach-tennis-erp" target="_blank" style="position: absolute; inset:0;"></a>
+        <div class="principle reveal">
+          <div class="p-icon"><i data-lucide="shield-check"></i></div>
+          <div><h5 data-i18n="p2-t">Entrega pequena e segura</h5><p data-i18n="p2-d">Mudo só o que foi pedido, não mexo no que já foi testado e reviso o impacto antes de entregar. Produção não é lugar de surpresa.</p></div>
+        </div>
+        <div class="principle reveal">
+          <div class="p-icon"><i data-lucide="sparkles"></i></div>
+          <div><h5 data-i18n="p3-t">IA como ferramenta de engenharia</h5><p data-i18n="p3-d">Uso Claude Code com skills e agentes de revisão que eu mesmo escrevi para o projeto, e integro IA aos meus sistemas via MCP.</p></div>
+        </div>
+        <div class="principle reveal">
+          <div class="p-icon"><i data-lucide="notebook-pen"></i></div>
+          <div><h5 data-i18n="p4-t">Documento o que importa</h5><p data-i18n="p4-d">Mantenho changelog, contexto do projeto e regras de entrega atualizados, para quem vier depois (inclusive eu) não perder tempo.</p></div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Kanban -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="kanban" width="32" height="32"></i></div>
-        <div class="proj-title">Kanban API</div>
-        <p class="proj-desc" data-i18n="proj-kanban-desc">API REST com autenticação JWT, CRUD completo, relatórios automáticos e integração com banco H2.</p>
-        <div class="tag-container">
-          <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">JWT</span>
+  <!-- STACK -->
+  <section class="block" id="stack">
+    <div class="container">
+      <div class="sec-head reveal"><span class="sec-num">03</span><h2 class="sec-title" data-i18n="stack-title">Ferramentas</h2></div>
+      <div class="stack">
+        <div class="stack-col reveal">
+          <h5>Back-end</h5>
+          <ul><li>PHP 8 <span>Adianti</span></li><li>Node.js <span>Express</span></li><li>Java <span>Spring Boot</span></li><li>NestJS</li><li data-i18n="s-rest">APIs REST</li></ul>
         </div>
-        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
+        <div class="stack-col reveal">
+          <h5>Front-end</h5>
+          <ul><li>React <span>19</span></li><li>Next.js <span>App Router</span></li><li>TypeScript</li><li>Tailwind CSS</li></ul>
+        </div>
+        <div class="stack-col reveal">
+          <h5 data-i18n="s-data">Dados</h5>
+          <ul><li>MySQL / MariaDB</li><li>PostgreSQL <span>Prisma</span></li><li>Oracle SQL</li><li>SQLite · IndexedDB</li></ul>
+        </div>
+        <div class="stack-col reveal">
+          <h5 data-i18n="s-infra">Infra e IA</h5>
+          <ul><li>Linux · nginx</li><li>Docker</li><li>Vercel · Git</li><li>Claude Code · MCP</li></ul>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Livraria Digital -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="book" width="32" height="32"></i></div>
-        <div class="proj-title" data-i18n="proj-library-title">Livraria Digital</div>
-        <p class="proj-desc" data-i18n="proj-library-desc">Sistema de gerenciamento de livros, autores e avaliações utilizando arquitetura moderna.</p>
-        <div class="tag-container">
-          <span class="tag">NestJS</span><span class="tag">TypeORM</span><span class="tag">TypeScript</span>
+  <!-- CARREIRA -->
+  <section class="block" id="carreira">
+    <div class="container">
+      <div class="sec-head reveal"><span class="sec-num">04</span><h2 class="sec-title" data-i18n="career-title">Carreira</h2></div>
+      <div class="career">
+        <div class="timeline">
+          <div class="job current reveal">
+            <div class="job-when" data-i18n="j1-when">Jun 2025 — atual</div>
+            <h4 data-i18n="j1-role">Analista de Processos de TI e Desenvolvedor</h4>
+            <div class="org">Vector Soluções Digitais</div>
+            <ul class="bullets">
+              <li data-i18n="j1-b1">Desenvolvimento de módulos do ERP Wave em PHP com Adianti Framework, incluindo o módulo para clínicas veterinárias</li>
+              <li data-i18n="j1-b2">Análise e automação de processos no Tareffa, reduzindo trabalho manual nos fluxos internos</li>
+              <li data-i18n="j1-b3">Criação e manutenção de robôs de atendimento automatizado no DigSac</li>
+            </ul>
+          </div>
+          <div class="job reveal">
+            <div class="job-when" data-i18n="j2-when">Fev 2025 — Jun 2025</div>
+            <h4 data-i18n="j2-role">Analista de Suporte Web</h4>
+            <div class="org">SG Sistemas</div>
+            <p data-i18n="j2-d">Suporte técnico a sistemas web, configuração e monitoramento de servidores Linux, análise de logs e apoio a integrações.</p>
+          </div>
+          <div class="job reveal">
+            <div class="job-when">2023 — 2024</div>
+            <h4 data-i18n="j3-role">Chefe da Divisão de Informática</h4>
+            <div class="org" data-i18n="j3-org">Prefeitura de Sarandi</div>
+            <p data-i18n="j3-d">Liderança da área de TI do município: infraestrutura, redes, sistemas internos e suporte aos setores.</p>
+          </div>
+          <div class="job reveal">
+            <div class="job-when">2021 — 2023</div>
+            <h4 data-i18n="j4-role">Auxiliar de Escritório</h4>
+            <div class="org" data-i18n="j4-org">TCCC · transporte coletivo</div>
+            <p data-i18n="j4-d">Rotinas administrativas e melhorias de processos internos com planilhas e automações no Office.</p>
+          </div>
         </div>
-        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
+
+        <aside class="side">
+          <div class="side-card reveal">
+            <h5><i data-lucide="graduation-cap"></i> <span data-i18n="edu-t">Formação</span></h5>
+            <div class="side-item"><strong data-i18n="edu-deg">Engenharia de Software</strong><span>Unicesumar · 2023 — 2026</span></div>
+          </div>
+          <div class="side-card reveal">
+            <h5><i data-lucide="languages"></i> <span data-i18n="lang-t">Idiomas</span></h5>
+            <div class="side-item"><strong data-i18n="lang-pt">Português</strong><span data-i18n="lang-native">Nativo</span></div>
+            <div class="side-item"><strong data-i18n="lang-en">Inglês</strong><span data-i18n="lang-adv">Avançado (CCAA / Fisk)</span></div>
+          </div>
+          <div class="side-card reveal">
+            <h5><i data-lucide="award"></i> <span data-i18n="cert-t">Cursos</span></h5>
+            <div class="side-item"><strong>Udemy</strong><span data-i18n="cert-udemy">Java completo, MySQL e desenvolvimento web</span></div>
+            <div class="side-item"><strong>Microsoft Office</strong><span data-i18n="cert-office">Intermediário</span></div>
+          </div>
+        </aside>
       </div>
     </div>
-
-    <!-- Sistema Suporte -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="life-buoy" width="32" height="32"></i></div>
-        <div class="proj-title" data-i18n="proj-support-title">Sistema Suporte</div>
-        <p class="proj-desc" data-i18n="proj-support-desc">API RESTful desenvolvida para monitoramento eficiente de incidentes e operações de TI.</p>
-        <div class="tag-container">
-          <span class="tag">Node.js</span><span class="tag">API REST</span><span class="tag">Monitoring</span>
-        </div>
-        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
-      </div>
-    </div>
-
-    <!-- PDV Wave -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="shopping-cart" width="32" height="32"></i></div>
-        <div class="proj-title">PDV WAVE</div>
-        <p class="proj-desc" data-i18n="proj-pdv-desc">Frente de caixa totalmente online que funciona em contingência offline usando IndexedDB.</p>
-        <div class="tag-container">
-          <span class="tag">React</span><span class="tag">IndexedDB</span><span class="tag">Offline-First</span>
-        </div>
-        <a href="https://github.com/sirlovani/wave_pdv" target="_blank" style="position: absolute; inset:0;"></a>
-      </div>
-    </div>
-
-    <!-- Sistema Financeiro -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="dollar-sign" width="32" height="32"></i></div>
-        <div class="proj-title" data-i18n="proj-finance-title">Sistema Financeiro</div>
-        <p class="proj-desc" data-i18n="proj-finance-desc">Plataforma para controle financeiro, com registros de fluxo de caixa de forma simplificada.</p>
-        <div class="tag-container">
-          <span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
-        </div>
-        <a href="https://github.com/Nicolasplgn/sistema-financeiro-hdl" target="_blank" style="position: absolute; inset:0;"></a>
-      </div>
-    </div>
-
-    <!-- Gerador de Senhas -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="lock" width="32" height="32"></i></div>
-        <div class="proj-title" data-i18n="proj-password-title">Gerador de Senhas</div>
-        <p class="proj-desc" data-i18n="proj-password-desc">Aplicação segura para geração de credenciais com testes automatizados.</p>
-        <div class="tag-container">
-          <span class="tag">Java</span><span class="tag">JUnit</span><span class="tag">Maven</span>
-        </div>
-        <a href="https://github.com/Nicolasplgn" target="_blank" style="position: absolute; inset:0;"></a>
-      </div>
-    </div>
-
-    <!-- Agenda -->
-    <div class="card">
-      <div class="card-body">
-        <div class="proj-icon"><i data-lucide="calendar" width="32" height="32"></i></div>
-        <div class="proj-title" data-i18n="proj-agenda-title">Agenda de Reuniões</div>
-        <p class="proj-desc" data-i18n="proj-agenda-desc">Sistema de gestão para controle de reuniões e atas corporativas.</p>
-        <div class="tag-container">
-          <span class="tag">Java</span><span class="tag">Spring</span><span class="tag">Web</span>
-        </div>
-        <a href="https://github.com/Nicolasplgn/Sistema-de-Agenda-de-Reuni-es" target="_blank" style="position: absolute; inset:0;"></a>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- CONTEÚDO DIVIDIDO (Experiência + Sidebar) -->
-  <h2 class="section-header" id="experience"><span data-i18n="experience-title">Trajetória Profissional</span> <div class="section-line"></div></h2>
-  
-  <div class="main-content-grid">
-    <!-- Esquerda: Experiência -->
-    <div class="xp-grid">
-      
-      <div class="xp-card">
-        <span class="xp-company" data-i18n="xp-vector-company">VECTOR SOLUÇÕES DIGITAIS • JUN/2025 – ATUAL</span>
-        <div class="xp-role" data-i18n="xp-vector-role">Analista de Processos de TI e Desenvolvedor</div>
-        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-vector-desc">
-          Responsável por análise e automação de processos no sistema Tareffa, otimizando fluxos. Desenvolvimento de soluções internas, manutenção e criação de robôs de atendimento automatizado (DigSac). Desenvolvimento em PHP utilizando Adianti Framework para a criação de módulos no sistema ERP Wave.
-        </p>
-      </div>
-
-      <div class="xp-card">
-        <span class="xp-company" data-i18n="xp-sg-company">SG SISTEMAS • FEV/2025 – JUN/2025</span>
-        <div class="xp-role" data-i18n="xp-sg-role">Analista de Suporte Web</div>
-        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-sg-desc">
-          Atendimento técnico especializado em sistemas web. Configuração e monitoramento de servidores Linux, análise de logs e suporte a integrações.
-        </p>
-      </div>
-
-      <div class="xp-card">
-        <span class="xp-company" data-i18n="xp-prefeitura-company">PREFEITURA DE SARANDI • 2023 – 2024</span>
-        <div class="xp-role" data-i18n="xp-prefeitura-role">Chefe da Divisão de Informática</div>
-        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-prefeitura-desc">
-          Gestão de infraestrutura tecnológica e manutenção de sistemas internos. Suporte técnico, formatação e manutenção de equipamentos e redes.
-        </p>
-      </div>
-
-      <div class="xp-card">
-        <span class="xp-company" data-i18n="xp-tccc-company">TCCC – EMPRESA DE ÔNIBUS • 2021 – 2023</span>
-        <div class="xp-role" data-i18n="xp-tccc-role">Auxiliar de Escritório</div>
-        <p style="color: var(--text-muted); margin-top: 8px;" data-i18n="xp-tccc-desc">
-          Apoio administrativo, gestão de documentos e implementação de melhorias em processos internos utilizando Office.
-        </p>
-      </div>
-      
-    </div>
-
-    <!-- Direita: Formação e Skills -->
-    <aside>
-      <div class="sidebar-card">
-        <div class="sidebar-title"><i data-lucide="graduation-cap" style="vertical-align: middle;"></i> <span data-i18n="sidebar-education">Formação</span></div>
-        <div class="sidebar-item">
-          <strong data-i18n="education-degree">Engenharia de Software</strong>
-          <span data-i18n="education-university">Universidade Unicesumar</span><br>
-          <span style="color: var(--cyan);" data-i18n="education-period">2023 – 2026 (6º Semestre)</span>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sidebar-title"><i data-lucide="languages" style="vertical-align: middle;"></i> <span data-i18n="sidebar-languages">Idiomas</span></div>
-        <div class="sidebar-item">
-          <strong data-i18n="lang-portuguese">Português</strong>
-          <span data-i18n="lang-native">Nativo</span>
-        </div>
-        <div class="sidebar-item">
-          <strong data-i18n="lang-english">Inglês</strong>
-          <span data-i18n="lang-advanced">Avançado (CCAA/Fisk)</span>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sidebar-title"><i data-lucide="award" style="vertical-align: middle;"></i> <span data-i18n="sidebar-certifications">Certificações</span></div>
-        <div class="sidebar-item" data-i18n="certifications-list">
-          • Udemy: Java Completo, MySQL, Web<br>
-          • Microsoft Office Intermediário<br>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sidebar-title"><i data-lucide="user-check" style="vertical-align: middle;"></i> <span data-i18n="sidebar-softskills">Soft Skills</span></div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <span class="tag" data-i18n="skill-leadership">Liderança</span>
-          <span class="tag" data-i18n="skill-communication">Comunicação</span>
-          <span class="tag" data-i18n="skill-creativity">Criatividade</span>
-          <span class="tag" data-i18n="skill-proactivity">Proatividade</span>
-          <span class="tag" data-i18n="skill-scrum">Scrum</span>
-        </div>
-      </div>
-    </aside>
-  </div>
+  </section>
 
   <!-- CONTATO -->
-  <section class="contact-section" id="contact">
-    <div class="contact-box">
-      <h2 style="font-family: 'Space Grotesk'; font-size: 32px; color: #fff; margin-bottom: 16px;" data-i18n="contact-title">Contato Profissional</h2>
-      <p style="margin-bottom: 32px; color: var(--text-muted);">
-        (44) 99715-9587 | Sarandi - PR
-      </p>
-      <form action="https://formspree.io/f/manpgeaw" method="POST">
-        <input type="email" name="email" data-i18n-placeholder="contact-email-placeholder" placeholder="Seu email" required>
-        <textarea name="message" rows="4" data-i18n-placeholder="contact-message-placeholder" placeholder="Mensagem..." required></textarea>
-        <button type="submit" class="btn-magic" style="width:100%; border:none; cursor:pointer;">
-          <span data-i18n="contact-send">Enviar Email</span>
-        </button>
-      </form>
+  <section class="block" id="contato">
+    <div class="container">
+      <div class="contact reveal">
+        <div class="contact-info">
+          <span class="sec-num">05</span>
+          <h3 data-i18n="contact-title">Tem um processo que precisa virar sistema?</h3>
+          <p data-i18n="contact-sub">Estou aberto a projetos freelance e a novas oportunidades. Respondo rápido pelo WhatsApp ou e-mail.</p>
+          <div class="channels">
+            <a class="channel" href="https://wa.me/5544997159587" target="_blank" rel="noopener"><i data-lucide="message-circle"></i><span>(44) 99715-9587</span><small>WhatsApp</small></a>
+            <a class="channel" href="https://www.linkedin.com/in/n%C3%ADcolas-pereira-lucas-gon%C3%A7alves-4466b5326/" target="_blank" rel="noopener"><i data-lucide="linkedin"></i><span>LinkedIn</span><small>/in/nícolas</small></a>
+            <a class="channel" href="https://github.com/Nicolasplgn" target="_blank" rel="noopener"><i data-lucide="github"></i><span>GitHub</span><small>@Nicolasplgn</small></a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/manpgeaw" method="POST">
+          <label class="f"><span data-i18n="form-email">Seu e-mail</span>
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+          <label class="f"><span data-i18n="form-msg">Mensagem</span>
+            <textarea name="message" required data-i18n-placeholder="form-ph" placeholder="Conte rapidamente o que você precisa..."></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary" style="justify-content:center; border:0;"><i data-lucide="send"></i> <span data-i18n="form-send">Enviar mensagem</span></button>
+          <div class="form-status" id="formStatus" role="status"></div>
+        </form>
+      </div>
     </div>
   </section>
-
 </main>
 
 <footer>
-  <p data-i18n="footer-text">© 2026 Nicolas Pereira Lucas Gonçalves. Desenvolvido com paixão.</p>
+  <div class="container">
+    <span data-i18n="footer">© 2026 Nícolas Pereira Lucas Gonçalves · Sarandi, PR</span>
+    <a href="#inicio" data-i18n="back-top">Voltar ao topo ↑</a>
+  </div>
 </footer>
 
 <script>
-  // Sistema de Tradução
-  const translations = {
-    pt: {
-      'nav-about': 'Sobre',
-      'nav-projects': 'Projetos',
-      'nav-career': 'Carreira',
-      'nav-contact': 'Contato',
-      'hero-subtitle': 'Desenvolvedor Fullstack apaixonado por automação e performance.<br>Especialista em <span class="highlight">Java, Spring Boot e React</span>.',
-      'explore-projects': 'Explorar Projetos',
-      'projects-title': 'Projetos Relevantes',
-      'proj-beach-title': 'Beach Tennis ERP',
-      'proj-beach-desc': 'Sistema de gestão para arenas de Beach Tennis, facilitando o controle de agendamentos, quadras e clientes.',
-      'proj-kanban-desc': 'API REST com autenticação JWT, CRUD completo, relatórios automáticos e integração com banco H2.',
-      'proj-library-title': 'Livraria Digital',
-      'proj-library-desc': 'Sistema de gerenciamento de livros, autores e avaliações utilizando arquitetura moderna.',
-      'proj-support-title': 'Sistema Suporte',
-      'proj-support-desc': 'API RESTful desenvolvida para monitoramento eficiente de incidentes e operações de TI.',
-      'proj-pdv-desc': 'Frente de caixa totalmente online que funciona em contingência offline usando IndexedDB.',
-      'proj-finance-title': 'Sistema Financeiro',
-      'proj-finance-desc': 'Plataforma para controle financeiro, com registros de fluxo de caixa de forma simplificada.',
-      'proj-password-title': 'Gerador de Senhas',
-      'proj-password-desc': 'Aplicação segura para geração de credenciais com testes automatizados.',
-      'proj-agenda-title': 'Agenda de Reuniões',
-      'proj-agenda-desc': 'Sistema de gestão para controle de reuniões e atas corporativas.',
-      'experience-title': 'Trajetória Profissional',
-      'xp-vector-company': 'VECTOR SOLUÇÕES DIGITAIS • JUN/2025 – ATUAL',
-      'xp-vector-role': 'Analista de Processos de TI e Desenvolvedor',
-      'xp-vector-desc': 'Responsável por análise e automação de processos no sistema Tareffa, otimizando fluxos. Desenvolvimento de soluções internas, manutenção e criação de robôs de atendimento automatizado (DigSac). Desenvolvimento em PHP utilizando Adianti Framework para a criação de módulos no sistema ERP Wave.',
-      'xp-sg-company': 'SG SISTEMAS • FEV/2025 – JUN/2025',
-      'xp-sg-role': 'Analista de Suporte Web',
-      'xp-sg-desc': 'Atendimento técnico especializado em sistemas web. Configuração e monitoramento de servidores Linux, análise de logs e suporte a integrações.',
-      'xp-prefeitura-company': 'PREFEITURA DE SARANDI • 2023 – 2024',
-      'xp-prefeitura-role': 'Chefe da Divisão de Informática',
-      'xp-prefeitura-desc': 'Gestão de infraestrutura tecnológica e manutenção de sistemas internos. Suporte técnico, formatação e manutenção de equipamentos e redes.',
-      'xp-tccc-company': 'TCCC – EMPRESA DE ÔNIBUS • 2021 – 2023',
-      'xp-tccc-role': 'Auxiliar de Escritório',
-      'xp-tccc-desc': 'Apoio administrativo, gestão de documentos e implementação de melhorias em processos internos utilizando Office.',
-      'sidebar-education': 'Formação',
-      'education-degree': 'Engenharia de Software',
-      'education-university': 'Universidade Unicesumar',
-      'education-period': '2023 – 2026 (6º Semestre)',
-      'sidebar-languages': 'Idiomas',
-      'lang-portuguese': 'Português',
-      'lang-native': 'Nativo',
-      'lang-english': 'Inglês',
-      'lang-advanced': 'Avançado (CCAA/Fisk)',
-      'sidebar-certifications': 'Certificações',
-      'certifications-list': '• Udemy: Java Completo, MySQL, Web<br>• Microsoft Office Intermediário<br>',
-      'sidebar-softskills': 'Soft Skills',
-      'skill-leadership': 'Liderança',
-      'skill-communication': 'Comunicação',
-      'skill-creativity': 'Criatividade',
-      'skill-proactivity': 'Proatividade',
-      'skill-scrum': 'Scrum',
-      'contact-title': 'Contato Profissional',
-      'contact-email-placeholder': 'Seu email',
-      'contact-message-placeholder': 'Mensagem...',
-      'contact-send': 'Enviar Email',
-      'footer-text': '© 2026 Nicolas Pereira Lucas Gonçalves. Desenvolvido com paixão.',
-      'terminal-text': `> Resumo Profissional carregado...
-> Desenvolvedor Fullstack
-> Stack: Java, PHP, TypeScript, JavaScript
-> Frameworks: Spring Boot, Adianti, React, Node.js
-> Foco: Automação, APIs RESTful e Inovação.
-> Status: Disponível para projetos.`
-    },
-    en: {
-      'nav-about': 'About',
-      'nav-projects': 'Projects',
-      'nav-career': 'Career',
-      'nav-contact': 'Contact',
-      'hero-subtitle': 'Fullstack Developer passionate about automation and performance.<br>Specialist in <span class="highlight">Java, Spring Boot and React</span>.',
-      'explore-projects': 'Explore Projects',
-      'projects-title': 'Relevant Projects',
-      'proj-beach-title': 'Beach Tennis ERP',
-      'proj-beach-desc': 'Management system for Beach Tennis arenas, facilitating control over bookings, courts, and clients.',
-      'proj-kanban-desc': 'REST API with JWT authentication, complete CRUD, automatic reports and H2 database integration.',
-      'proj-library-title': 'Digital Library',
-      'proj-library-desc': 'Book, author and review management system using modern architecture.',
-      'proj-support-title': 'Support System',
-      'proj-support-desc': 'RESTful API developed for efficient monitoring of incidents and IT operations.',
-      'proj-pdv-desc': 'Fully online point of sale that works in offline contingency using IndexedDB.',
-      'proj-finance-title': 'Financial System',
-      'proj-finance-desc': 'Financial management platform, featuring cash flow tracking in a simplified interface.',
-      'proj-password-title': 'Password Generator',
-      'proj-password-desc': 'Secure application for credential generation with automated tests.',
-      'proj-agenda-title': 'Meeting Scheduler',
-      'proj-agenda-desc': 'Management system for controlling meetings and corporate minutes.',
-      'experience-title': 'Professional Journey',
-      'xp-vector-company': 'VECTOR SOLUÇÕES DIGITAIS • JUN/2025 – CURRENT',
-      'xp-vector-role': 'IT Process Analyst and Developer',
-      'xp-vector-desc': 'Responsible for analysis and automation of processes in the Tareffa system, optimizing workflows. Development of internal solutions, maintenance and creation of automated support robots (DigSac). Development in PHP using Adianti Framework to create modules within the Wave ERP system.',
-      'xp-sg-company': 'SG SISTEMAS • FEB/2025 – JUN/2025',
-      'xp-sg-role': 'Web Support Analyst',
-      'xp-sg-desc': 'Specialized technical support for web systems. Linux server configuration and monitoring, log analysis and integration support.',
-      'xp-prefeitura-company': 'SARANDI CITY HALL • 2023 – 2024',
-      'xp-prefeitura-role': 'IT Division Chief',
-      'xp-prefeitura-desc': 'Management of technological infrastructure and maintenance of internal systems. Technical support, formatting and maintenance of equipment and networks.',
-      'xp-tccc-company': 'TCCC – BUS COMPANY • 2021 – 2023',
-      'xp-tccc-role': 'Office Assistant',
-      'xp-tccc-desc': 'Administrative support, document management and implementation of improvements in internal processes using Office.',
-      'sidebar-education': 'Education',
-      'education-degree': 'Software Engineering',
-      'education-university': 'Unicesumar University',
-      'education-period': '2023 – 2026 (6th Semester)',
-      'sidebar-languages': 'Languages',
-      'lang-portuguese': 'Portuguese',
-      'lang-native': 'Native',
-      'lang-english': 'English',
-      'lang-advanced': 'Advanced (CCAA/Fisk)',
-      'sidebar-certifications': 'Certifications',
-      'certifications-list': '• Udemy: Complete Java, MySQL, Web<br>• Microsoft Office Intermediate<br>',
-      'sidebar-softskills': 'Soft Skills',
-      'skill-leadership': 'Leadership',
-      'skill-communication': 'Communication',
-      'skill-creativity': 'Creativity',
-      'skill-proactivity': 'Proactivity',
-      'skill-scrum': 'Scrum',
-      'contact-title': 'Professional Contact',
-      'contact-email-placeholder': 'Your email',
-      'contact-message-placeholder': 'Message...',
-      'contact-send': 'Send Email',
-      'footer-text': '© 2026 Nicolas Pereira Lucas Gonçalves. Developed with passion.',
-      'terminal-text': `> Professional Summary loaded...
-> Fullstack Developer
-> Stack: Java, PHP, TypeScript, JavaScript
-> Frameworks: Spring Boot, Adianti, React, Node.js
-> Focus: Automation, RESTful APIs and Innovation.
-> Status: Available for projects.`
-    }
+  const en = {
+    'nav-projects': 'Projects', 'nav-how': 'How I work', 'nav-career': 'Career', 'nav-contact': 'Contact',
+    'hero-status': 'Fullstack Dev at Vector Soluções Digitais · Brazil',
+    'hero-title': 'Software that keeps <span class="grad">operations running.</span>',
+    'hero-lead': 'I\'m <strong>Nícolas</strong>, a fullstack developer. I work on a <strong>production ERP</strong> with PHP and Adianti, build apps with <strong>Next.js and Node</strong>, and enjoy turning messy processes into simple systems: finance, Kanban, reporting and <strong>AI integrations</strong>.',
+    'cta-projects': 'See projects',
+    'f1-k': 'Today', 'f1-v': 'Multi-tenant SaaS ERP in production',
+    'f2-k': 'Main stack', 'f3-k': 'Edge', 'f3-v': 'AI wired into the workflow (MCP)',
+    'f4-k': 'Education', 'f4-v': 'Software Eng. · Unicesumar',
+    'projects-title': 'Featured projects',
+    'projects-sub': 'Systems I use, maintain or delivered to clients, with the problem each one solves and what I did.',
+    'what-i-did': 'What I built', 'link-live': 'Live', 'link-code': 'Code', 'tag-live': 'Live',
+    'pends-kicker': 'Own product · used daily',
+    'pends-desc': 'My "personal operating system": Kanban tasks organized by life modules (work, college, home) plus a full finance hub. It ships its own MCP server, so an AI assistant can create tasks, log expenses and build the daily summary right inside the app.',
+    'pends-b1': 'Drag-and-drop Kanban, table view, recurring routines and due-date alerts',
+    'pends-b2': 'Finance with Pix, bank slip and credit card: installments, statement closing, fixed bills and spending caps per module',
+    'pends-b3': 'MCP server with an OAuth flow to connect AI assistants to tasks and cash flow',
+    'pends-b4': 'Analytics dashboard with executive report and CSV export; daily reminders via cron',
+    'wave-kicker': 'Work · Vector Soluções Digitais',
+    'wave-desc': 'Multi-tenant SaaS ERP (one database per client) used by retail, service companies and veterinary clinics. I build and maintain production modules in a large legacy codebase where every change must follow existing patterns and not break its dependents.',
+    'wave-note': 'Proprietary code: no public link.',
+    'wave-b1': 'Screens and business rules for the veterinary module: scheduling, appointments, prescriptions and exams',
+    'wave-b2': 'Standardized listings, filters and reports across modules, with per-branch access control',
+    'wave-b3': 'Pre-delivery review routine (lint, encoding, impact on dependent screens)',
+    'wave-b4': 'Migration and compatibility across framework versions (Adianti 7.5 → 8.6)',
+    'fin-kicker': 'System for an accounting firm', 'fin-title': 'Multi-company Finance',
+    'fin-desc': 'Platform to record the monthly results of many companies and groups, with automatic consolidation and reports ready for client meetings. Replaced scattered spreadsheets with a role-based system.',
+    'fin-b1': 'REST API with Admin, Manager and Client roles controlling what each one sees and edits',
+    'fin-b2': 'Revenue, tax, expense and profit calculation per period, consolidated by company or group',
+    'fin-b3': 'Excel spreadsheet import with a dry-run check before saving',
+    'fin-b4': 'PDF and Excel reports with charts, plus automated back-end tests',
+    'nfc-kicker': 'Client · legacy rebuild', 'nfc-title': 'Digital business card (NFC/QR)',
+    'nfc-desc': 'The client only had the compiled site, no source code, and an API with serious flaws. I recovered the original code from source maps, mapped the old API and rebuilt the platform from scratch, keeping already-printed card links working.',
+    'nfc-note': 'Client project: no public link.',
+    'nfc-b1': 'Audit of the old system: API key exposed in the front-end, open image directory and reversibly encrypted passwords',
+    'nfc-b2': 'New API, admin panel and mobile public card with WhatsApp, Pix and vCard shortcuts',
+    'nfc-b3': 'Importer that migrates the old SQLite database and converts passwords to secure hashes',
+    'nfc-b4': 'Two deploy targets: plain PHP hosting or Node in a Docker container',
+    'more-title': 'Other projects',
+    'm-pdv': 'Online point of sale that keeps selling without internet, storing everything in IndexedDB and syncing later.',
+    'm-beach': 'Management for beach tennis arenas: court booking, customers and day-to-day control.',
+    'm-rel-title': 'HDL Reports', 'm-rel': 'Web reporting dashboard for the accounting firm, complementing the finance system.',
+    'm-lp-title': 'Landing page · Personal trainer', 'm-lp': 'Lead-capture page for an independent professional, designed to convert on mobile.',
+    'm-kanban': 'REST API with JWT authentication, full CRUD and automatic reports.',
+    'm-agenda-title': 'Meeting Room Scheduler', 'm-agenda': 'Meeting room booking with schedule control and minutes.',
+    'how-title': 'How I work',
+    'p1-t': 'Read before touching', 'p1-d': 'In legacy systems I understand the whole file and its neighbors before changing anything, and follow the existing pattern instead of imposing mine.',
+    'p2-t': 'Small, safe deliveries', 'p2-d': 'I change only what was asked, leave tested code alone and review impact before shipping. Production is no place for surprises.',
+    'p3-t': 'AI as an engineering tool', 'p3-d': 'I use Claude Code with project skills and review agents I wrote myself, and I integrate AI into my own systems via MCP.',
+    'p4-t': 'Document what matters', 'p4-d': 'I keep changelogs, project context and delivery rules up to date so whoever comes next (me included) doesn\'t waste time.',
+    'stack-title': 'Tools', 's-rest': 'REST APIs', 's-data': 'Data', 's-infra': 'Infra & AI',
+    'career-title': 'Career',
+    'j1-when': 'Jun 2025 — present', 'j1-role': 'IT Process Analyst & Developer',
+    'j1-b1': 'Building Wave ERP modules in PHP with Adianti Framework, including the veterinary clinic module',
+    'j1-b2': 'Process analysis and automation in Tareffa, cutting manual work in internal workflows',
+    'j1-b3': 'Building and maintaining automated support bots on DigSac',
+    'j2-when': 'Feb 2025 — Jun 2025', 'j2-role': 'Web Support Analyst',
+    'j2-d': 'Technical support for web systems, Linux server setup and monitoring, log analysis and integration support.',
+    'j3-role': 'Head of IT Division', 'j3-org': 'Sarandi City Hall',
+    'j3-d': 'Led the city\'s IT area: infrastructure, networks, internal systems and support for departments.',
+    'j4-role': 'Office Assistant', 'j4-org': 'TCCC · public transport',
+    'j4-d': 'Administrative routines and internal process improvements with spreadsheets and Office automation.',
+    'edu-t': 'Education', 'edu-deg': 'Software Engineering',
+    'lang-t': 'Languages', 'lang-pt': 'Portuguese', 'lang-native': 'Native', 'lang-en': 'English', 'lang-adv': 'Advanced (CCAA / Fisk)',
+    'cert-t': 'Courses', 'cert-udemy': 'Complete Java, MySQL and web development', 'cert-office': 'Intermediate',
+    'contact-title': 'Got a process that should become software?',
+    'contact-sub': 'Open to freelance projects and new opportunities. I reply fast on WhatsApp or email.',
+    'form-email': 'Your email', 'form-msg': 'Message', 'form-ph': 'Briefly tell me what you need...', 'form-send': 'Send message',
+    'footer': '© 2026 Nícolas Pereira Lucas Gonçalves · Sarandi, Brazil', 'back-top': 'Back to top ↑'
   };
 
-  let currentLang = localStorage.getItem('lang') || 'pt';
-  const langToggle = document.getElementById('langToggle');
-  let typewriterTimeout = null;
+  // Português vem do próprio HTML
+  const pt = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => { pt[el.dataset.i18n] = el.innerHTML; });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { pt[el.dataset.i18nPlaceholder] = el.placeholder; });
+  const dict = { pt, en };
+  const msgs = {
+    pt: { ok: 'Mensagem enviada. Obrigado! Respondo em breve.', err: 'Não consegui enviar agora. Tente pelo WhatsApp.', sending: 'Enviando...' },
+    en: { ok: 'Message sent. Thanks! I\'ll get back to you soon.', err: 'Couldn\'t send right now. Try WhatsApp instead.', sending: 'Sending...' }
+  };
 
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('lang', lang);
-    langToggle.textContent = lang === 'pt' ? 'EN' : 'PT';
-    
+  const toggle = document.getElementById('langToggle');
+  let lang = 'pt';
+  try { lang = localStorage.getItem('lang') === 'en' ? 'en' : 'pt'; } catch (e) {}
+
+  function setLang(l) {
+    lang = l;
+    try { localStorage.setItem('lang', l); } catch (e) {}
+    document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+    toggle.textContent = l === 'pt' ? 'EN' : 'PT';
     document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[lang][key]) {
-        el.innerHTML = translations[lang][key];
-      }
+      const v = dict[l][el.dataset.i18n]; if (v !== undefined) el.innerHTML = v;
     });
-
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (translations[lang][key]) {
-        el.placeholder = translations[lang][key];
-      }
+      const v = dict[l][el.dataset.i18nPlaceholder]; if (v !== undefined) el.placeholder = v;
     });
-
-    // Atualizar terminal
-    if (lang === 'pt') {
-      document.documentElement.setAttribute('lang', 'pt-BR');
-    } else {
-      document.documentElement.setAttribute('lang', 'en');
-    }
-    
-    // Recarregar typewriter
-    const typeContainer = document.getElementById('typewriter');
-    if (typeContainer) {
-      if (typewriterTimeout) {
-        clearTimeout(typewriterTimeout);
-        typewriterTimeout = null;
-      }
-      
-      typeContainer.innerHTML = '';
-      const textToType = translations[lang]['terminal-text'];
-      let displayedText = '';
-      let i = 0;
-      
-      function typeWriter() {
-        if (i < textToType.length) {
-          const char = textToType.charAt(i);
-          if (char === '\n') {
-            displayedText += '<br>';
-          } else {
-            displayedText += char === '&' ? '&amp;' : char;
-          }
-          typeContainer.innerHTML = displayedText;
-          i++;
-          typewriterTimeout = setTimeout(typeWriter, 30);
-        } else {
-          typeContainer.innerHTML = displayedText + '<span class="cursor"></span>';
-          typewriterTimeout = null;
-        }
-      }
-      
-      typeWriter();
-    }
-    
-    setTimeout(() => lucide.createIcons(), 100);
+    if (window.lucide) lucide.createIcons();
   }
+  toggle.addEventListener('click', () => setLang(lang === 'pt' ? 'en' : 'pt'));
+  setLang(lang);
 
-  langToggle.addEventListener('click', () => {
-    setLanguage(currentLang === 'pt' ? 'en' : 'pt');
-  });
+  // borda do header ao rolar
+  const header = document.getElementById('top');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
 
-  // Inicialização
-  if (document.readyState === 'loading') {
-    window.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      setLanguage(currentLang);
-    });
+  // revelar ao rolar
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   } else {
-    lucide.createIcons();
-    setLanguage(currentLang);
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
 
-  // Mouse Tracking
-  document.body.addEventListener('mousemove', (e) => {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--x', `${x}px`);
-      card.style.setProperty('--y', `${y}px`);
-    });
+  // formulário sem sair da página
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    status.className = 'form-status'; status.textContent = msgs[lang].sending;
+    try {
+      const r = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!r.ok) throw new Error();
+      form.reset(); status.textContent = msgs[lang].ok;
+    } catch (e) {
+      status.className = 'form-status err'; status.textContent = msgs[lang].err;
+    }
   });
 </script>
 </body>
